@@ -1,0 +1,36 @@
+{
+  "name": "react-native-rtmpview",
+  "title": "React Native RtmpView",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/github_account/react-native-rtmpview.git",
+    "baseUrl": "https://github.com/github_account/react-native-rtmpview"
+  },
+  "keywords": [
+    "react-native"
+  ],
+  "author": {
+    "name": "Eric Silverberg",
+    "email": "eric@s*****.com"
+  },
+  "license": "MIT",
+  "licenseFilename": "LICENSE",
+  "readmeFilename": "README.md",
+  "peerDependencies": {
+    "react": "16.0.0-alpha.6",
+    "react-native": "^0.44.1"
+  },
+  "devDependencies": {
+    "react": "^16.3.1",
+    "react-native": "^0.44.1"
+  },
+  "dependencies": {
+    "prop-types": "^15.6.1"
+  }
+}

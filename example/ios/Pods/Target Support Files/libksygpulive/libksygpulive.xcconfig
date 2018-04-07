@@ -1,0 +1,11 @@
+CONFIGURATION_BUILD_DIR = ${PODS_CONFIGURATION_BUILD_DIR}/libksygpulive
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/libksygpulive" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/GPUImage" "${PODS_ROOT}/Headers/Public/libksygpulive"
+LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/libksygpulive/prebuilt/libs" "${PODS_CONFIGURATION_BUILD_DIR}/GPUImage"
+OTHER_LDFLAGS = -all_load -l"ObjC" -l"bz2" -l"iconv" -l"ksybase" -l"ksygpufilter" -l"ksymediacodec" -l"ksymediacore_enc_base" -l"ksymediacore_enc_lite" -l"ksyplayer" -l"ksystreamerbase" -l"ksystreamerengine" -l"ksyyuv" -l"stdc++.6" -l"z" -framework "AVFoundation" -framework "VideoToolbox"
+PODS_BUILD_DIR = ${BUILD_DIR}
+PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_ROOT = ${SRCROOT}
+PODS_TARGET_SRCROOT = ${PODS_ROOT}/libksygpulive
+PRODUCT_BUNDLE_IDENTIFIER = org.cocoapods.${PRODUCT_NAME:rfc1034identifier}
+SKIP_INSTALL = YES
