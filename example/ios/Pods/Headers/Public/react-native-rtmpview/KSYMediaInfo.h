@@ -1,0 +1,1 @@
+../../../../../../ios/Pods/libksygpulive/prebuilt/include/KSYPlayer/KSYMediaInfo.h

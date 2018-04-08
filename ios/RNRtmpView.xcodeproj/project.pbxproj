@@ -262,6 +262,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 229AD368DCAF0715FAD39780 /* Pods-RNRtmpView.debug.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/../../../ios/Frameworks/**",
+					"$(PROJECT_DIR)/../../../ios/Pods/**",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -279,6 +285,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CFEFB63FE5A8E0BFF017DAEB /* Pods-RNRtmpView.release.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/../../../ios/Frameworks/**",
+					"$(PROJECT_DIR)/../../../ios/Pods/**",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
