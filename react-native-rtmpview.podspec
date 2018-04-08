@@ -6,10 +6,7 @@ Pod::Spec.new do |s|
   s.name         = 'react-native-rtmpview'
   s.version      = package['version']
   s.summary      = package['description']
-  s.description  = <<-DESC
-                   React Native RTMPView
-		               Show RTMP views on iOS + Android using React Native
-                   DESC
+  s.description  = package['summary']
   s.homepage     = 'https://github.com/perrystreetsoftware/react-native-rtmpview'
   s.license      = 'MIT'
   s.author       = { 'author' => 'eric@s*****.com' }
@@ -21,7 +18,6 @@ Pod::Spec.new do |s|
   s.source_files = 'ios/**/*.{h,m}'
   s.requires_arc = true
 
-  s.dependency 'React'
   s.dependency 'libksygpulive/KSYGPUResource'
   s.dependency 'libksygpulive/libksygpulive'
   s.dependency 'PureLayout'
