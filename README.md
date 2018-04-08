@@ -24,6 +24,12 @@
 ```javascript
 import RNRtmpView from 'react-native-rtmpview';
 
-// TODO: What to do with the module?
-RNRtmpView;
+<RtmpView
+  style={styles.player}
+  ref={e => { this.player = e; }}
+  onPlaybackState={(data) => {
+    this.handlePlaybackState(data);
+  }}
+  url="rtmp://live.hkstv.hk.lxdns.com/live/hks"/>
+
 ```
