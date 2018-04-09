@@ -16,13 +16,24 @@ PODS:
     - libksygpulive/yuv
   - libksygpulive/yuv (3.0.2)
   - PureLayout (3.0.2)
+  - React (0.44.3):
+    - React/Core (= 0.44.3)
   - react-native-rtmpview (1.0.0):
     - libksygpulive/KSYGPUResource
     - libksygpulive/libksygpulive
     - PureLayout
+  - React/Core (0.44.3):
+    - React/cxxreact
+    - Yoga (= 0.44.3.React)
+  - React/cxxreact (0.44.3):
+    - React/jschelpers
+  - React/jschelpers (0.44.3)
+  - Yoga (0.44.3.React)
 
 DEPENDENCIES:
-  - react-native-rtmpview (from `../../`)
+  - React (from `../node_modules/react-native`)
+  - react-native-rtmpview (from `../node_modules/react-native-rtmpview`)
+  - Yoga (from `../node_modules/react-native/ReactCommon/yoga/Yoga.podspec`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -31,15 +42,21 @@ SPEC REPOS:
     - PureLayout
 
 EXTERNAL SOURCES:
+  React:
+    :path: "../node_modules/react-native"
   react-native-rtmpview:
-    :path: "../../"
+    :path: "../node_modules/react-native-rtmpview"
+  Yoga:
+    :path: "../node_modules/react-native/ReactCommon/yoga/Yoga.podspec"
 
 SPEC CHECKSUMS:
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   libksygpulive: 7f75edd239cd3650da153c788df3aff2d5661f58
   PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
-  react-native-rtmpview: 727cb91631666278bd9e39b3e3f8ca7acc0df765
+  React: e53535491f7b382b8cd681428dd853159bf25545
+  react-native-rtmpview: fa237359721784955eb4278e7f450c0f2b5c4e91
+  Yoga: f2b1f5b59fadb774a3dd9932a7cf813c6e284d71
 
-PODFILE CHECKSUM: 67af69d4c9fde7a5d1dda38ba85905d62f5278f3
+PODFILE CHECKSUM: 2b41b006f3f9dec9652e18667b92a6cddb01f2a1
 
 COCOAPODS: 1.5.0

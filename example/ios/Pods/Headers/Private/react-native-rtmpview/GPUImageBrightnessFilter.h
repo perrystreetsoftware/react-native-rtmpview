@@ -1,1 +1,0 @@
-../../../../../../ios/Pods/Headers/Public/GPUImage/GPUImageBrightnessFilter.h
