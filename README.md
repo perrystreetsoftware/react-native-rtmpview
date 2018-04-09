@@ -5,7 +5,7 @@
 
 `$ npm install git+https://git@github.com/perrystreetsoftware/react-native-rtmpview.git --save`
 
-### Manual installation
+### iOS installation
 
 Find your iOS podfile, and add:
 
@@ -17,7 +17,7 @@ Next, run
 
     pod install
 
-Because this library has pod dependencies, it must be added through Cocoapods
+Because this library has pod dependencies, it must be added through Cocoapods; you cannot use `link`
 
 ## Usage
 ```javascript
