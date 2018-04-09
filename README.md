@@ -3,26 +3,26 @@
 
 ## Getting started
 
-`$ npm install react-native-rtmpview --save`
-
-### Mostly automatic installation
-
-`$ react-native link react-native-rtmpview`
+`$ npm install git+https://git@github.com/perrystreetsoftware/react-native-rtmpview.git --save`
 
 ### Manual installation
 
+Find your iOS podfile, and add:
 
-#### iOS
+    pod 'Yoga', path: '../node_modules/react-native/ReactCommon/yoga/Yoga.podspec'
+    pod 'React', path: '../node_modules/react-native'
+    pod 'react-native-rtmpview', :path => '../node_modules/react-native-rtmpview'
 
-1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
-2. Go to `node_modules` ➜ `react-native-rtmpview` and add `RNKslive.xcodeproj`
-3. In XCode, in the project navigator, select your project. Add `libRNKslive.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
-4. Run your project (`Cmd+R`)<
+Next, run 
 
+    pod install
+
+Because this library has pod dependencies, it must be added through Cocoapods
 
 ## Usage
 ```javascript
-import RNRtmpView from 'react-native-rtmpview';
+
+import { RtmpView } from 'react-native-rtmpview';
 
 <RtmpView
   style={styles.player}
