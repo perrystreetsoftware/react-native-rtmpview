@@ -10,8 +10,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/github_account/react-native-rtmpview.git",
-    "baseUrl": "https://github.com/github_account/react-native-rtmpview"
+    "url": "git+https://github.com/perrystreetsoftware/react-native-rtmpview.git",
+    "baseUrl": "https://github.com/perrystreetsoftware/react-native-rtmpview"
   },
   "keywords": [
     "react-native"
