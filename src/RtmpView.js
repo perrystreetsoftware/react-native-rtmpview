@@ -23,6 +23,21 @@ class RtmpView extends Component {
     this.props.onPlaybackState(event.nativeEvent)
   }
 
+  _onFirstVideoFrameRendered = (event) => {
+    if (!this.props.onFirstVideoFrameRendered) {
+      return;
+    }
+    this.props.onFirstVideoFrameRendered(event.nativeEvent)
+  }
+
+  initialize() {
+    UIManager.dispatchViewManagerCommand(
+      findNodeHandle(this.refs[RCT_VIDEO_REF]),
+      UIManager.RNRtmpView.Commands.initialize,
+      null
+    );
+  }
+
   pause() {
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(this.refs[RCT_VIDEO_REF]),
@@ -47,8 +62,20 @@ class RtmpView extends Component {
     );
   }
 
-  getPlaybackState() {
+  mute() {
+    UIManager.dispatchViewManagerCommand(
+      findNodeHandle(this.refs[RCT_VIDEO_REF]),
+      UIManager.RNRtmpView.Commands.mute,
+      null
+    );
+  }
 
+  unmute() {
+    UIManager.dispatchViewManagerCommand(
+      findNodeHandle(this.refs[RCT_VIDEO_REF]),
+      UIManager.RNRtmpView.Commands.unmute,
+      null
+    );
   }
 
   componentWillUnmount() {
@@ -59,8 +86,11 @@ class RtmpView extends Component {
   render() {
     return <RNRtmpView
       ref={RCT_VIDEO_REF}
-      {...this.props}
+      scalingMode='MovieScalingModeAspectFill'
+      shouldMute={false}
       onPlaybackState={this._onPlaybackState.bind(this)}
+      onFirstVideoFrameRendered={this._onFirstVideoFrameRendered.bind(this)}
+      {...this.props}
     />;
   };
 }
@@ -68,7 +98,10 @@ class RtmpView extends Component {
 RtmpView.name = RCT_VIDEO_REF;
 RtmpView.propTypes = {
   url: PropTypes.string,
+  scalingMode: PropTypes.string,
+  shouldMute: PropTypes.bool,
   onPlaybackState: PropTypes.func,
+  onFirstVideoFrameRendered: PropTypes.func,
   ...View.propTypes
 };
 

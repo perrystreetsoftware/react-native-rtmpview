@@ -41,25 +41,26 @@ export default class Example extends Component {
 
   handlePlaybackState(data) {
     console.log(
-      "React Native Received PlaybackState " + JSON.stringify(data)
+      "React Native Received PlaybackState "
+    );
+  }
+
+  handleFirstVideoFrameRendered(data) {
+    console.log(
+      "React Native Received FirstVideoFrameRendered"
     );
 
-    // debugger;
-    // this.player.rawClass();
-    // this.player.playbackState(function(args) {
-    //   console.log("Playback state is " + JSON.stringify(args));
-    // });
+    this.player.unmute();
   }
 
   handleRNRtmpEvent(data) {
     console.log(
       "React Native Received RNRtmpEventManager " + JSON.stringify(data)
     );
+  }
 
-    // this.player.rawClass();
-    // this.player.playbackState(function(args) {
-    //   console.log("Playback state is " + JSON.stringify(args));
-    // });
+  componentDidMount() {
+    this.player.initialize();
   }
 
   render() {
@@ -67,11 +68,15 @@ export default class Example extends Component {
       <View style={styles.container}>
       <RtmpView
         style={styles.player}
+        shouldMute={true}
         ref={e => { this.player = e; }}
         onPlaybackState={(data) => {
           this.handlePlaybackState(data);
         }}
-        url="rtmp://live.hkstv.hk.lxdns.com/live/hks"/>
+        onFirstVideoFrameRendered={(data) => {
+          this.handleFirstVideoFrameRendered(data);
+        }}
+        url="rtmp://edge-lb-b97e24af79104e09.elb.us-east-1.amazonaws.com:1935/edge/tune_in"/>
 
       <Button
         onPress={() => {
@@ -84,6 +89,18 @@ export default class Example extends Component {
           this.player.play()
         }}
         title="Play"
+      />
+      <Button
+        onPress={() => {
+          this.player.mute()
+        }}
+        title="Mute"
+      />
+      <Button
+        onPress={() => {
+          this.player.unmute()
+        }}
+        title="Unmute"
       />
       </View>
     );
@@ -108,8 +125,8 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   player: {
-    width: 200,
-    height: 200
+    width: '100%',
+    height: '50%'
   }
 });
 

@@ -6,6 +6,12 @@
 
 @implementation RCTConvert (MoviePlaybackState)
 
+RCT_ENUM_CONVERTER(MPMovieScalingMode,(@{@"MovieScalingModeNone":@(MPMovieScalingModeNone),
+                                           @"MovieScalingModeAspectFit":@(MPMovieScalingModeAspectFit),
+                                           @"MovieScalingModeAspectFill":@(MPMovieScalingModeAspectFill),
+                                           @"MovieScalingModeFill":@(MPMovieScalingModeFill)
+                                           }),MPMovieScalingModeNone,integerValue);
+
 RCT_ENUM_CONVERTER(MPMoviePlaybackState,(@{@"MoviePlaybackStateStopped":@(MPMoviePlaybackStateStopped),
                                            @"MoviePlaybackStatePlaying":@(MPMoviePlaybackStatePlaying),
                                            @"MoviePlaybackStatePaused":@(MPMoviePlaybackStatePaused),
@@ -23,15 +29,16 @@ RCT_ENUM_CONVERTER(MPMovieLoadState,(@{@"MovieLoadStateUnknown":@(MPMovieLoadSta
 
 
 
-@interface KslivePlayerView : UIView {
-
-}
+@interface KslivePlayerView : UIView
 
 @property (nonatomic, strong) KSYMoviePlayerController *player;
-@property (nonatomic, assign) NSString *url;
+@property (nonatomic, strong) NSString *url;
+@property (nonatomic) BOOL shouldMute;
+@property (nonatomic) MPMovieScalingMode scalingMode;
 
 // or RCTBubblingEventBlock
 @property (nonatomic, copy) RCTBubblingEventBlock onPlaybackState;
+@property (nonatomic, copy) RCTBubblingEventBlock onFirstVideoFrameRendered;
 
 @end
 
@@ -69,13 +76,16 @@ RCT_ENUM_CONVERTER(MPMovieLoadState,(@{@"MovieLoadStateUnknown":@(MPMovieLoadSta
     [self.player stop];
 }
 
-- (void)setUrl:(NSString *)urlString {
+- (void)initialize {
     self.player =
-        [[KSYMoviePlayerController alloc] initWithContentURL:[NSURL URLWithString:urlString]];
+        [[KSYMoviePlayerController alloc] initWithContentURL:[NSURL URLWithString:self.url]];
 
+    self.player.scalingMode = self.scalingMode;
+    self.player.shouldMute = self.shouldMute;
     [self setupObservers:self.player];
     [self addSubview:self.player.view];
     [self.player.view autoPinEdgesToSuperviewEdges];
+
     [self.player prepareToPlay];
 }
 
@@ -107,10 +117,20 @@ RCT_ENUM_CONVERTER(MPMovieLoadState,(@{@"MovieLoadStateUnknown":@(MPMovieLoadSta
         }
     }
 
+    if ([notify.name isEqualToString:MPMoviePlayerSuggestReloadNotification]) {
+        [self.player reload:self.player.contentURL flush:YES mode:MPMovieReloadMode_Fast];
+    }
+
     if ([notify.name isEqualToString:MPMoviePlayerPlaybackStateDidChangeNotification]) {
         if (self.onPlaybackState) {
             NSLog(@"Notify is %@ %@", notify.object, notify.userInfo);
             self.onPlaybackState(@{@"state": @(self.player.playbackState)});
+        }
+    }
+
+    if ([notify.name isEqualToString:MPMoviePlayerFirstVideoFrameRenderedNotification]) {
+        if (self.onFirstVideoFrameRendered) {
+            self.onFirstVideoFrameRendered(@{});
         }
     }
 
@@ -138,13 +158,11 @@ RCT_EXPORT_MODULE()
 }
 
 //RCT_EXPORT_VIEW_PROPERTY(playbackState, MPMoviePlaybackState)
-//RCT_EXPORT_VIEW_PROPERTY(loadState, MPMovieLoadState)
+RCT_EXPORT_VIEW_PROPERTY(scalingMode, MPMovieScalingMode)
 RCT_EXPORT_VIEW_PROPERTY(url, NSString)
 RCT_EXPORT_VIEW_PROPERTY(onPlaybackState, RCTBubblingEventBlock)
-
-//RCT_CUSTOM_VIEW_PROPERTY(url, NSString, KslivePlayerView) {
-//    [view setUrl:json];
-//}
+RCT_EXPORT_VIEW_PROPERTY(onFirstVideoFrameRendered, RCTBubblingEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(shouldMute, BOOL)
 
 RCT_EXPORT_METHOD(loadState:(NSNumber * __nonnull)reactTag completion:(RCTResponseSenderBlock)callback) {
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, KslivePlayerView *> *viewRegistry) {
@@ -165,6 +183,17 @@ RCT_EXPORT_METHOD(playbackState:(NSNumber * __nonnull)reactTag completion:(RCTRe
         }
         // Call your native component's method here
         callback(@[@(view.player.playbackState)]);
+    }];
+}
+
+RCT_EXPORT_METHOD(initialize:(NSNumber * __nonnull)reactTag) {
+    [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, KslivePlayerView *> *viewRegistry) {
+        KslivePlayerView *view = viewRegistry[reactTag];
+        if (![view isKindOfClass:[KslivePlayerView class]]) {
+            RCTLogError(@"Invalid view returned from registry, expecting MyCoolView, got: %@", view);
+        }
+        // Call your native component's method here
+        [view initialize];
     }];
 }
 
@@ -202,6 +231,28 @@ RCT_EXPORT_METHOD(pause:(NSNumber * __nonnull)reactTag) {
     }];
 }
 
+RCT_EXPORT_METHOD(mute:(NSNumber * __nonnull)reactTag) {
+    [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, KslivePlayerView *> *viewRegistry) {
+        KslivePlayerView *view = viewRegistry[reactTag];
+        if (![view isKindOfClass:[KslivePlayerView class]]) {
+            RCTLogError(@"Invalid view returned from registry, expecting MyCoolView, got: %@", view);
+        }
+        // Call your native component's method here
+        [view.player setShouldMute:YES];
+    }];
+}
+
+RCT_EXPORT_METHOD(unmute:(NSNumber * __nonnull)reactTag) {
+    [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, KslivePlayerView *> *viewRegistry) {
+        KslivePlayerView *view = viewRegistry[reactTag];
+        if (![view isKindOfClass:[KslivePlayerView class]]) {
+            RCTLogError(@"Invalid view returned from registry, expecting MyCoolView, got: %@", view);
+        }
+        // Call your native component's method here
+        [view.player setShouldMute:NO];
+    }];
+}
+
 - (NSDictionary *)constantsToExport {
     return @{ @"MoviePlaybackStateStopped":@(MPMoviePlaybackStateStopped),
               @"MoviePlaybackStatePlaying":@(MPMoviePlaybackStatePlaying),
@@ -213,10 +264,14 @@ RCT_EXPORT_METHOD(pause:(NSNumber * __nonnull)reactTag) {
               @"MovieLoadStateUnknown":@(MPMovieLoadStateUnknown),
               @"MovieLoadStatePlayable":@(MPMovieLoadStatePlayable),
               @"MovieLoadStatePlaythroughOK":@(MPMovieLoadStatePlaythroughOK),
-              @"MovieLoadStateStalled":@(MPMovieLoadStateStalled)
+              @"MovieLoadStateStalled":@(MPMovieLoadStateStalled),
+
+              @"MovieScalingModeNone":@(MPMovieScalingModeNone),
+              @"MovieScalingModeAspectFit":@(MPMovieScalingModeAspectFit),
+              @"MovieScalingModeAspectFill":@(MPMovieScalingModeAspectFill),
+              @"MovieScalingModeFill":@(MPMovieScalingModeFill)
 
               };
 }
 
 @end
-  
