@@ -3,11 +3,11 @@
 
 ## Getting started
 
-`$ npm install git+https://git@github.com/perrystreetsoftware/react-native-rtmpview.git --save`
+`$ npm install react-native-rtmpview --save`
 
 ### iOS installation
 
-Find your iOS podfile, and add:
+Find or create an iOS podfile in the `./ios` directory, and add:
 
     pod 'Yoga', path: '../node_modules/react-native/ReactCommon/yoga/Yoga.podspec'
     pod 'React', path: '../node_modules/react-native'
@@ -17,7 +17,7 @@ Next, run
 
     pod install
 
-Because this library has pod dependencies, it must be added through Cocoapods; you *cannot use* `react-native link`
+Because react-native-rtmpview has cocoapod dependencies on third-party video playback libraries, it must be added through Cocoapods. (You cannot simply use `react-native link` for example, as you can with other libraries).
 
 ### Android installation
 
