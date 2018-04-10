@@ -1,0 +1,6 @@
+framework module react_native_rtmpview {
+  umbrella header "react-native-rtmpview-umbrella.h"
+
+  export *
+  module * { export * }
+}
