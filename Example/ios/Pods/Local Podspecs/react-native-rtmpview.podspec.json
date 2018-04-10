@@ -1,6 +1,6 @@
 {
   "name": "react-native-rtmpview",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "summary": "Show RTMP views on iOS + Android using React Native",
   "description": "RTMP in RN",
   "homepage": "https://github.com/perrystreetsoftware/react-native-rtmpview",
@@ -13,11 +13,14 @@
   },
   "source": {
     "git": "https://github.com/perrystreetsoftware/react-native-rtmpview.git",
-    "tag": "1.0.0"
+    "tag": "1.0.3"
   },
   "source_files": "ios/*.{h,m}",
   "requires_arc": true,
   "dependencies": {
+    "React": [
+
+    ],
     "libksygpulive/KSYGPUResource": [
 
     ],

@@ -18,10 +18,11 @@ PODS:
   - PureLayout (3.0.2)
   - React (0.44.3):
     - React/Core (= 0.44.3)
-  - react-native-rtmpview (1.0.0):
+  - react-native-rtmpview (1.0.3):
     - libksygpulive/KSYGPUResource
     - libksygpulive/libksygpulive
     - PureLayout
+    - React
   - React/Core (0.44.3):
     - React/cxxreact
     - Yoga (= 0.44.3.React)
@@ -54,7 +55,7 @@ SPEC CHECKSUMS:
   libksygpulive: 7f75edd239cd3650da153c788df3aff2d5661f58
   PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
   React: e53535491f7b382b8cd681428dd853159bf25545
-  react-native-rtmpview: fa237359721784955eb4278e7f450c0f2b5c4e91
+  react-native-rtmpview: 2819e617700e0541c355c70bfe526a6b9e1a17de
   Yoga: f2b1f5b59fadb774a3dd9932a7cf813c6e284d71
 
 PODFILE CHECKSUM: 2b41b006f3f9dec9652e18667b92a6cddb01f2a1

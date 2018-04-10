@@ -686,6 +686,13 @@
 			remoteGlobalIDString = 15BC2718FA1062F069350F6B9163A818;
 			remoteInfo = React;
 		};
+		4D31CB4B4BA41760A3D8F320538CC208 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 15BC2718FA1062F069350F6B9163A818;
+			remoteInfo = React;
+		};
 		623A114B032316BCEFE3248FC2A84BF2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
@@ -3116,6 +3123,7 @@
 			dependencies = (
 				D97A09970FAEC0C19E652F1F8D02DA35 /* PBXTargetDependency */,
 				7B41F54C400AC221FC50695A9592346D /* PBXTargetDependency */,
+				8D5F0882CB9E99957D734B8CA681CDB4 /* PBXTargetDependency */,
 				90D6BB2C361F2A1FAA14DAF2527D061C /* PBXTargetDependency */,
 			);
 			name = "react-native-rtmpview";
@@ -3576,6 +3584,12 @@
 			name = PureLayout;
 			target = 7213DBCBA619AB9AF280100AFBE20A31 /* PureLayout */;
 			targetProxy = 623A114B032316BCEFE3248FC2A84BF2 /* PBXContainerItemProxy */;
+		};
+		8D5F0882CB9E99957D734B8CA681CDB4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = React;
+			target = 15BC2718FA1062F069350F6B9163A818 /* React */;
+			targetProxy = 4D31CB4B4BA41760A3D8F320538CC208 /* PBXContainerItemProxy */;
 		};
 		90D6BB2C361F2A1FAA14DAF2527D061C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
