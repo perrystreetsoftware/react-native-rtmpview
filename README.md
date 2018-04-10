@@ -90,3 +90,33 @@ react-native-rtmpview is based on [KSYLive](https://github.com/ksvc/KSYLive_iOS)
 As a result, we elected to base our implementation for RTMP in React Native on the actively-maintained KSYLive_iOS library, because it was both the most full-featured and still actively maintained.
 
 We are actively investigating implementation options for Android.
+
+## About the example configuration
+
+You will note in the Example/package.json file that we have an explicit dependency on react-native-rtmpview:
+
+```
+  "react-native-rtmpview": "*"
+```
+
+. We do not have a relative depedency (i.e., 
+
+```
+  "react-native-rtmpview": "file:.."
+```
+
+This is created by running `npm -i ../`.
+
+This means if you use the Example project to test/debug react-native-rtmpview, you will have to make those changes to code buried within `Example/node_modules/react-native-rtmpview`, and manually apply or copy those changes up one level at the root of the project. 
+
+This is because if you create a relative link, every time you launch the app by running `react-native run-ios`, you will see a redbox stating:
+
+```
+"Unable to resolve module `react` from `<path>`: Module does not exist in the module map."
+```
+
+I have confirmed that this also plagues other apps with Example directories architected similiarly, including [react-native-twilio-video-webrtc](https://github.com/blackuy/react-native-twilio-video-webrtc)
+
+There is [some chatter online](https://github.com/wix/wml/issues/14) about how to use wml to address this problem, but I was unable to get it working.
+
+Thus, until React improves its module resolution process, we will be forced to manually copy over changes made while developing using the Example project.
