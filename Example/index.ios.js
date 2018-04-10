@@ -76,7 +76,7 @@ export default class Example extends Component {
         onFirstVideoFrameRendered={(data) => {
           this.handleFirstVideoFrameRendered(data);
         }}
-        url="rtmp://edge-lb-b97e24af79104e09.elb.us-east-1.amazonaws.com:1935/edge/tune_in"/>
+        url="rtmp://live.hkstv.hk.lxdns.com/live/hks"/>
 
       <Button
         onPress={() => {
