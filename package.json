@@ -1,7 +1,7 @@
 {
   "name": "react-native-rtmpview",
   "title": "React Native RtmpView",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "summary": "RTMP in RN",
   "description": "Show RTMP views on iOS + Android using React Native",
   "main": "index.js",
@@ -27,8 +27,7 @@
     "react": "*",
     "react-native": "*"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "dependencies": {
     "prop-types": "^15.6.1"
   }
