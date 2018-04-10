@@ -99,17 +99,17 @@ You will note in the Example/package.json file that we have an explicit dependen
   "react-native-rtmpview": "*"
 ```
 
-. We do not have a relative depedency (i.e., 
+We do not have a relative dependency (i.e., 
 
 ```
   "react-native-rtmpview": "file:.."
 ```
 
-This is created by running `npm -i ../`.
+Relative dependencies are created by running `npm -i ../` and they create a symoblic link (`ln -s`) inside of `node_modules/<your_library>/`, and are preferable because changes you make at the root of your project in the actual source code of your library are immediately reflected within your Example project, thus making development of your library easier.
 
-This means if you use the Example project to test/debug react-native-rtmpview, you will have to make those changes to code buried within `Example/node_modules/react-native-rtmpview`, and manually apply or copy those changes up one level at the root of the project. 
+We cannot do this; instead we must have a complete and unconnected copy of the project within `Example/node_modules/`. This means if you use the Example project to test/debug react-native-rtmpview, you will have to make those changes to code buried within `Example/node_modules/react-native-rtmpview`, and manually apply or copy those changes up one level at the root of the project. 
 
-This is because if you create a relative link, every time you launch the app by running `react-native run-ios`, you will see a redbox stating:
+We are required to use this architecture because if you create a relative link, every time you launch the app by running `react-native run-ios`, you will see a redbox stating:
 
 ```
 "Unable to resolve module `react` from `<path>`: Module does not exist in the module map."
