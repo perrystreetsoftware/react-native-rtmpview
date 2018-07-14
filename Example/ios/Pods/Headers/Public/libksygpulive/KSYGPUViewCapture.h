@@ -1,1 +1,1 @@
-../../../libksygpulive/prebuilt/include/KSYStreamer/KSYGPUViewCapture.h
+../../../libksygpulive/prebuilt/include/KSYStreamerEngine/KSYGPUViewCapture.h

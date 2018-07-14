@@ -1,1 +1,1 @@
-../../../libksygpulive/prebuilt/include/KSYStreamer/KSYClipWriter.h
+../../../libksygpulive/prebuilt/include/KSYStreamerBase/KSYClipWriter.h

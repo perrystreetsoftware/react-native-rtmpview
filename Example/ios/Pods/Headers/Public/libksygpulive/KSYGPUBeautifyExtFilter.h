@@ -1,1 +1,1 @@
-../../../libksygpulive/prebuilt/include/KSYStreamer/KSYGPUBeautifyExtFilter.h
+../../../libksygpulive/prebuilt/include/KSYGPUFilter/KSYGPUBeautifyExtFilter.h

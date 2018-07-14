@@ -1,24 +1,24 @@
 PODS:
   - GPUImage (0.1.7)
-  - libksygpulive/base (3.0.2)
-  - libksygpulive/KSYGPUResource (3.0.2)
-  - libksygpulive/libksygpulive (3.0.2):
+  - libksygpulive/base (3.0.4)
+  - libksygpulive/KSYGPUResource (3.0.4)
+  - libksygpulive/libksygpulive (3.0.4):
     - GPUImage
     - libksygpulive/streamerbase
-  - libksygpulive/mediacodec (3.0.2)
-  - libksygpulive/mediacore_enc_base (3.0.2)
-  - libksygpulive/mediacore_enc_lite (3.0.2)
-  - libksygpulive/streamerbase (3.0.2):
+  - libksygpulive/mediacodec (3.0.4)
+  - libksygpulive/mediacore_enc_base (3.0.4)
+  - libksygpulive/mediacore_enc_lite (3.0.4)
+  - libksygpulive/streamerbase (3.0.4):
     - libksygpulive/base
     - libksygpulive/mediacodec
     - libksygpulive/mediacore_enc_base
     - libksygpulive/mediacore_enc_lite
     - libksygpulive/yuv
-  - libksygpulive/yuv (3.0.2)
+  - libksygpulive/yuv (3.0.4)
   - PureLayout (3.0.2)
   - React (0.44.3):
     - React/Core (= 0.44.3)
-  - react-native-rtmpview (1.0.3):
+  - react-native-rtmpview (1.0.4):
     - libksygpulive/KSYGPUResource
     - libksygpulive/libksygpulive
     - PureLayout
@@ -52,7 +52,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
-  libksygpulive: 7f75edd239cd3650da153c788df3aff2d5661f58
+  libksygpulive: aca3eb30e7a38ee6565feb52feb82ccc0103ce43
   PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
   React: e53535491f7b382b8cd681428dd853159bf25545
   react-native-rtmpview: 2819e617700e0541c355c70bfe526a6b9e1a17de

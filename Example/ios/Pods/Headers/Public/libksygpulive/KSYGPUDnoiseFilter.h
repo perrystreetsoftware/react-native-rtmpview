@@ -1,1 +1,1 @@
-../../../libksygpulive/prebuilt/include/KSYStreamer/KSYGPUDnoiseFilter.h
+../../../libksygpulive/prebuilt/include/KSYGPUFilter/KSYGPUDnoiseFilter.h

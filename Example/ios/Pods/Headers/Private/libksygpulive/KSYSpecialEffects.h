@@ -1,1 +1,1 @@
-../../../libksygpulive/prebuilt/include/KSYStreamer/KSYSpecialEffects.h
+../../../libksygpulive/prebuilt/include/KSYGPUFilter/KSYSpecialEffects.h

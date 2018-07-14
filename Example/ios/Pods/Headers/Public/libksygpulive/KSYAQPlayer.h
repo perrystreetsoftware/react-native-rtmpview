@@ -1,1 +1,1 @@
-../../../libksygpulive/prebuilt/include/KSYStreamer/KSYAQPlayer.h
+../../../libksygpulive/prebuilt/include/KSYStreamerEngine/KSYAQPlayer.h

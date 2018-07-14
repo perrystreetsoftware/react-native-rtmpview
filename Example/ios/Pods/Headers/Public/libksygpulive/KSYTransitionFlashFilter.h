@@ -1,1 +1,1 @@
-../../../libksygpulive/prebuilt/include/KSYStreamer/KSYTransitionFlashFilter.h
+../../../libksygpulive/prebuilt/include/KSYGPUFilter/KSYTransitionFlashFilter.h

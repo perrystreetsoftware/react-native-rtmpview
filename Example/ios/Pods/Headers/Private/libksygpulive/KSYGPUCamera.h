@@ -1,1 +1,1 @@
-../../../libksygpulive/prebuilt/include/KSYStreamer/KSYGPUCamera.h
+../../../libksygpulive/prebuilt/include/KSYStreamerEngine/KSYGPUCamera.h

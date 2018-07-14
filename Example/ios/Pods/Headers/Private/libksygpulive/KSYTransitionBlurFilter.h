@@ -1,1 +1,1 @@
-../../../libksygpulive/prebuilt/include/KSYStreamer/KSYTransitionBlurFilter.h
+../../../libksygpulive/prebuilt/include/KSYGPUFilter/KSYTransitionBlurFilter.h

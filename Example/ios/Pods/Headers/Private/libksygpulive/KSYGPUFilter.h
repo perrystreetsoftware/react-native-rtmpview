@@ -1,1 +1,1 @@
-../../../libksygpulive/prebuilt/include/KSYStreamer/KSYGPUFilter.h
+../../../libksygpulive/prebuilt/include/KSYGPUFilter/KSYGPUFilter.h

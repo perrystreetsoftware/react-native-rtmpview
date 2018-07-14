@@ -1,1 +1,1 @@
-../../../libksygpulive/prebuilt/include/KSYStreamer/KSYAVFCapture.h
+../../../libksygpulive/prebuilt/include/KSYStreamerEngine/KSYAVFCapture.h

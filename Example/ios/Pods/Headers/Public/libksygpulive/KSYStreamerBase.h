@@ -1,1 +1,1 @@
-../../../libksygpulive/prebuilt/include/KSYStreamer/KSYStreamerBase.h
+../../../libksygpulive/prebuilt/include/KSYStreamerBase/KSYStreamerBase.h

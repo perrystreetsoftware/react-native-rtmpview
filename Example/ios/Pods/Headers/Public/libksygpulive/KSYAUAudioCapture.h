@@ -1,1 +1,1 @@
-../../../libksygpulive/prebuilt/include/KSYStreamer/KSYAUAudioCapture.h
+../../../libksygpulive/prebuilt/include/KSYStreamerEngine/KSYAUAudioCapture.h

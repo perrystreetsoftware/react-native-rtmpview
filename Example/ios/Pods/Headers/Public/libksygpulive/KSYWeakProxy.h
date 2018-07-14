@@ -1,1 +1,1 @@
-../../../libksygpulive/prebuilt/include/KSYStreamer/KSYWeakProxy.h
+../../../libksygpulive/prebuilt/include/KSYStreamerEngine/KSYWeakProxy.h

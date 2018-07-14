@@ -1,1 +1,1 @@
-../../../libksygpulive/prebuilt/include/KSYStreamer/KSYBeautifyProFilter.h
+../../../libksygpulive/prebuilt/include/KSYGPUFilter/KSYBeautifyProFilter.h
