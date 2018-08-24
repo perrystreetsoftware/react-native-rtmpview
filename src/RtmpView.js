@@ -78,11 +78,6 @@ class RtmpView extends Component {
     );
   }
 
-  componentWillUnmount() {
-      console.log('componentWillUnmount', this.route.name);
-      this.stop()
-  }
-
   render() {
     return <RNRtmpView
       ref={RCT_VIDEO_REF}
