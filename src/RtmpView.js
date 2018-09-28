@@ -23,6 +23,13 @@ class RtmpView extends Component {
     this.props.onPlaybackState(event.nativeEvent)
   }
 
+  _onLoadState = (event) => {
+    if (!this.props.onLoadState) {
+      return;
+    }
+    this.props.onLoadState(event.nativeEvent)
+  }
+
   _onFirstVideoFrameRendered = (event) => {
     if (!this.props.onFirstVideoFrameRendered) {
       return;
@@ -84,6 +91,7 @@ class RtmpView extends Component {
       scalingMode='MovieScalingModeAspectFill'
       shouldMute={false}
       onPlaybackState={this._onPlaybackState.bind(this)}
+      onLoadState={this._onLoadState.bind(this)}
       onFirstVideoFrameRendered={this._onFirstVideoFrameRendered.bind(this)}
       {...this.props}
     />;
@@ -96,6 +104,7 @@ RtmpView.propTypes = {
   scalingMode: PropTypes.string,
   shouldMute: PropTypes.bool,
   onPlaybackState: PropTypes.func,
+  onLoadState: PropTypes.func,
   onFirstVideoFrameRendered: PropTypes.func,
   ...View.propTypes
 };

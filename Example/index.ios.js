@@ -41,7 +41,13 @@ export default class Example extends Component {
 
   handlePlaybackState(data) {
     console.log(
-      "React Native Received PlaybackState "
+      "React Native Received PlaybackState " + data.nativeEvent["state"]
+    );
+  }
+
+  handleLoadState(data) {
+    console.log(
+      "React Native Received LoadState " + data.nativeEvent["state"]
     );
   }
 
@@ -72,6 +78,9 @@ export default class Example extends Component {
         ref={e => { this.player = e; }}
         onPlaybackState={(data) => {
           this.handlePlaybackState(data);
+        }}
+        onLoadState={(data) => {
+          this.handleLoadState(data);
         }}
         onFirstVideoFrameRendered={(data) => {
           this.handleFirstVideoFrameRendered(data);

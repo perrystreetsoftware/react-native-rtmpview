@@ -38,6 +38,7 @@ RCT_ENUM_CONVERTER(MPMovieLoadState,(@{@"MovieLoadStateUnknown":@(MPMovieLoadSta
 
 // or RCTBubblingEventBlock
 @property (nonatomic, copy) RCTBubblingEventBlock onPlaybackState;
+@property (nonatomic, copy) RCTBubblingEventBlock onLoadState;
 @property (nonatomic, copy) RCTBubblingEventBlock onFirstVideoFrameRendered;
 
 @end
@@ -126,9 +127,11 @@ RCT_ENUM_CONVERTER(MPMovieLoadState,(@{@"MovieLoadStateUnknown":@(MPMovieLoadSta
             NSLog(@"Notify is %@ %@", notify.object, notify.userInfo);
             self.onPlaybackState(@{@"state": @(self.player.playbackState)});
         }
-    }
-
-    if ([notify.name isEqualToString:MPMoviePlayerFirstVideoFrameRenderedNotification]) {
+    } else if ([notify.name isEqualToString:MPMoviePlayerLoadStateDidChangeNotification]) {
+        if (self.onLoadState) {
+            self.onLoadState(@{@"state": @(self.player.loadState)});
+        }
+    } else if ([notify.name isEqualToString:MPMoviePlayerFirstVideoFrameRenderedNotification]) {
         if (self.onFirstVideoFrameRendered) {
             self.onFirstVideoFrameRendered(@{});
         }
@@ -161,6 +164,7 @@ RCT_EXPORT_MODULE()
 RCT_EXPORT_VIEW_PROPERTY(scalingMode, MPMovieScalingMode)
 RCT_EXPORT_VIEW_PROPERTY(url, NSString)
 RCT_EXPORT_VIEW_PROPERTY(onPlaybackState, RCTBubblingEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onLoadState, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onFirstVideoFrameRendered, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(shouldMute, BOOL)
 
