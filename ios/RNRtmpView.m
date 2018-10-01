@@ -41,6 +41,7 @@ RCT_ENUM_CONVERTER(MPMovieLoadState,(@{@"MovieLoadStateUnknown":@(MPMovieLoadSta
 @property (nonatomic, copy) RCTBubblingEventBlock onPlaybackState;
 @property (nonatomic, copy) RCTBubblingEventBlock onLoadState;
 @property (nonatomic, copy) RCTBubblingEventBlock onFirstVideoFrameRendered;
+@property (nonatomic, copy) RCTBubblingEventBlock onBitrateRecalculated;
 
 @property (nonatomic, strong) NSDictionary *mediaMeta;
 @property (nonatomic, strong) BitrateCalculator *bitrateCalculator;
@@ -226,9 +227,9 @@ RCT_ENUM_CONVERTER(MPMovieLoadState,(@{@"MovieLoadStateUnknown":@(MPMovieLoadSta
 }
 
 - (void)handleBitrateRecalculated:(double)bitrate {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"RNRtmpEvent"
-                                                        object:@{@"name": @"bitrate_recalculated",
-                                                                 @"bitrate": @(self.bitrateCalculator.bitrate)}];
+    if (self.onBitrateRecalculated) {
+        self.onBitrateRecalculated(@{@"bitrate": @(self.bitrateCalculator.bitrate)});
+    }
 }
 
 @end
@@ -255,6 +256,7 @@ RCT_EXPORT_VIEW_PROPERTY(url, NSString)
 RCT_EXPORT_VIEW_PROPERTY(onPlaybackState, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onLoadState, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onFirstVideoFrameRendered, RCTBubblingEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onBitrateRecalculated, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(shouldMute, BOOL)
 
 RCT_EXPORT_METHOD(loadState:(NSNumber * __nonnull)reactTag completion:(RCTResponseSenderBlock)callback) {

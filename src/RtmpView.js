@@ -37,6 +37,13 @@ class RtmpView extends Component {
     this.props.onFirstVideoFrameRendered(event.nativeEvent)
   }
 
+  _onBitrateRecalculated = (event) => {
+    if (!this.props.onBitrateRecalculated) {
+      return;
+    }
+    this.props.onBitrateRecalculated(event.nativeEvent)
+  }
+
   initialize() {
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(this.refs[RCT_VIDEO_REF]),
@@ -93,6 +100,7 @@ class RtmpView extends Component {
       onPlaybackState={this._onPlaybackState.bind(this)}
       onLoadState={this._onLoadState.bind(this)}
       onFirstVideoFrameRendered={this._onFirstVideoFrameRendered.bind(this)}
+      onBitrateRecalculated={this._onBitrateRecalculated.bind(this)}
       {...this.props}
     />;
   };
@@ -106,6 +114,7 @@ RtmpView.propTypes = {
   onPlaybackState: PropTypes.func,
   onLoadState: PropTypes.func,
   onFirstVideoFrameRendered: PropTypes.func,
+  onBitrateRecalculated: PropTypes.func,
   ...View.propTypes
 };
 

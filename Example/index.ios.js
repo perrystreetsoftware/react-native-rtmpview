@@ -62,6 +62,12 @@ export default class Example extends Component {
     this.player.unmute();
   }
 
+  handleBitrateRecalculated(data) {
+    console.log(
+      "React Native BitrateRecalculated " + JSON.stringify(data.nativeEvent["bitrate"])
+    );
+  }
+
   handleRNRtmpEvent(data) {
     console.log(
       "React Native Received RNRtmpEventManager " + JSON.stringify(data)
@@ -87,6 +93,9 @@ export default class Example extends Component {
         }}
         onFirstVideoFrameRendered={(data) => {
           this.handleFirstVideoFrameRendered(data);
+        }}
+        onBitrateRecalculated={(data) => {
+          this.handleBitrateRecalculated(data);
         }}
         url="rtmp://mobile.kscvbu.cn/live"/>
 
