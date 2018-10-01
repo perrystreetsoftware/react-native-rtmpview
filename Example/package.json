@@ -9,7 +9,7 @@
 	"dependencies": {
 		"react": "16.0.0-alpha.6",
 		"react-native": "0.44.3",
-		"react-native-rtmpview": "^1.0.7"
+		"react-native-rtmpview": "^1.0.8"
 	},
 	"devDependencies": {
 		"babel-jest": "22.4.3",

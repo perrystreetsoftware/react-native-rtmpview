@@ -18,7 +18,7 @@ PODS:
   - PureLayout (3.1.2)
   - React (0.44.3):
     - React/Core (= 0.44.3)
-  - react-native-rtmpview (1.0.6):
+  - react-native-rtmpview (1.0.8):
     - libksygpulive/KSYGPUResource
     - libksygpulive/libksygpulive
     - PureLayout
