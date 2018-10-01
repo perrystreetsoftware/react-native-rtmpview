@@ -27,7 +27,7 @@ RCT_ENUM_CONVERTER(MPMovieLoadState,(@{@"MovieLoadStateUnknown":@(MPMovieLoadSta
                                            }),MPMovieLoadStateUnknown,integerValue);
 @end
 
-
+@class BitrateCalculator;
 
 @interface KslivePlayerView : UIView
 
@@ -35,15 +35,40 @@ RCT_ENUM_CONVERTER(MPMovieLoadState,(@{@"MovieLoadStateUnknown":@(MPMovieLoadSta
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic) BOOL shouldMute;
 @property (nonatomic) MPMovieScalingMode scalingMode;
+@property (nonatomic, readonly) NSDictionary *qosInfo;
 
 // or RCTBubblingEventBlock
 @property (nonatomic, copy) RCTBubblingEventBlock onPlaybackState;
 @property (nonatomic, copy) RCTBubblingEventBlock onLoadState;
 @property (nonatomic, copy) RCTBubblingEventBlock onFirstVideoFrameRendered;
 
+@property (nonatomic, strong) NSDictionary *mediaMeta;
+@property (nonatomic, strong) BitrateCalculator *bitrateCalculator;
+
 @end
 
-@implementation KslivePlayerView
+@interface BitrateCalculator: NSObject {
+    NSTimeInterval lastCheckTime;
+    double lastSize;
+    double calculatedBitrate;
+}
+
+// Avoid retain cycle with timers by using a separate object
+@property (nonatomic, weak) KslivePlayerView *playerView;
+@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, readonly) double bitrate;
+
+- (instancetype)init:(KslivePlayerView *)playerView;
+- (void)cleanup;
+
+@end
+
+@implementation KslivePlayerView {
+    long long int prepared_time;
+
+    int fvr_costtime;
+    int far_costtime;
+}
 
 + (NSArray *)observedEvents {
   return @[MPMediaPlaybackIsPreparedToPlayDidChangeNotification,
@@ -73,6 +98,7 @@ RCT_ENUM_CONVERTER(MPMovieLoadState,(@{@"MovieLoadStateUnknown":@(MPMovieLoadSta
 }
 
 - (void)cleanup {
+    [self.bitrateCalculator cleanup];
     [self releaseObservers:self.player];
     [self.player stop];
 }
@@ -87,7 +113,16 @@ RCT_ENUM_CONVERTER(MPMovieLoadState,(@{@"MovieLoadStateUnknown":@(MPMovieLoadSta
     [self addSubview:self.player.view];
     [self.player.view autoPinEdgesToSuperviewEdges];
 
+    // Optimized for real-time
+    self.player.bufferTimeMax = 0.01;
+    self.bitrateCalculator = [[BitrateCalculator alloc] init:self];
+
+    prepared_time = (long long int)([self getCurrentTime] * 1000);
     [self.player prepareToPlay];
+}
+
+- (NSTimeInterval) getCurrentTime{
+    return [[NSDate date] timeIntervalSince1970];
 }
 
 - (void)releaseObservers:(KSYMoviePlayerController*)player {
@@ -107,12 +142,51 @@ RCT_ENUM_CONVERTER(MPMovieLoadState,(@{@"MovieLoadStateUnknown":@(MPMovieLoadSta
     }
 }
 
+- (NSDictionary *)qosInfo {
+    KSYQosInfo *info = self.player.qosInfo;
+
+    NSDictionary *stats = @{@"bitrate": @(self.bitrateCalculator.bitrate),
+                            @"first_video_frame_rendered": @(fvr_costtime),
+                            @"first_audio_frame_rendered": @(far_costtime),
+                            @"http_connection_time_ms": @((long)[(NSNumber *)[self.mediaMeta objectForKey:kKSYPLYHttpConnectTime] integerValue]),
+                            @"dns_resolution_time_ms": @((long)[(NSNumber *)[self.mediaMeta objectForKey:kKSYPLYHttpAnalyzeDns] integerValue]),
+                            @"first_packet_time": @((long)[(NSNumber *)[self.mediaMeta objectForKey:kKSYPLYHttpFirstDataTime] integerValue]),
+                            @"audio_buffer_byte_length": @((float)info.audioBufferByteLength / 1e6),
+                            @"audio_buffer_queue_length": @((float)info.audioBufferTimeLength / 1e3),
+                            @"audio_total_data_mb": @((float)info.audioTotalDataSize / 1e6),
+                            @"video_buffer_byte_length": @((float)info.videoBufferByteLength / 1e6),
+                            @"video_buffer_queue_length": @((float)info.videoBufferTimeLength / 1e3),
+                            @"video_total_data_mb": @((float)info.videoTotalDataSize / 1e6),
+                            @"total_data_mb": @((float)info.totalDataSize / 1e6),
+                            @"video_decoding_frame_rate": @(info.videoDecodeFPS),
+                            @"video_refresh_frame_rate": @(info.videoRefreshFPS),
+                            @"network_status": [self netStatus2Str:_player.networkStatus]
+                            };
+
+    return stats;
+}
+
+- (NSString *) netStatus2Str:(KSYNetworkStatus)networkStatus{
+    NSString *netString = nil;
+    if(networkStatus == KSYNotReachable)
+        netString = @"NO INTERNET";
+    else if(networkStatus == KSYReachableViaWiFi)
+        netString = @"WIFI";
+    else if(networkStatus == KSYReachableViaWWAN)
+        netString = @"WWAN";
+    else
+        netString = @"Unknown";
+    return netString;
+}
+
 - (void)handlePlayerNotify:(NSNotification*)notify {
     if (!self.player) {
         return;
     }
 
     if ([notify.name isEqualToString:MPMediaPlaybackIsPreparedToPlayDidChangeNotification]) {
+        self.mediaMeta = [self.player getMetadata];
+
         if ([self.player isPreparedToPlay]) {
             [self.player play];
         }
@@ -125,22 +199,37 @@ RCT_ENUM_CONVERTER(MPMovieLoadState,(@{@"MovieLoadStateUnknown":@(MPMovieLoadSta
     if ([notify.name isEqualToString:MPMoviePlayerPlaybackStateDidChangeNotification]) {
         if (self.onPlaybackState) {
             NSLog(@"Notify is %@ %@", notify.object, notify.userInfo);
-            self.onPlaybackState(@{@"state": @(self.player.playbackState)});
+            self.onPlaybackState(@{@"state": @(self.player.playbackState),
+                                   @"qos": self.qosInfo
+                                   });
         }
     } else if ([notify.name isEqualToString:MPMoviePlayerLoadStateDidChangeNotification]) {
         if (self.onLoadState) {
-            self.onLoadState(@{@"state": @(self.player.loadState)});
+            self.onLoadState(@{@"state": @(self.player.loadState),
+                               @"qos": self.qosInfo
+                               });
         }
     } else if ([notify.name isEqualToString:MPMoviePlayerFirstVideoFrameRenderedNotification]) {
+        fvr_costtime = (int)((long long int)([self getCurrentTime] * 1000) - prepared_time);
+
         if (self.onFirstVideoFrameRendered) {
-            self.onFirstVideoFrameRendered(@{});
+            self.onFirstVideoFrameRendered(@{@"state": @(self.player.loadState),
+                                             @"qos": self.qosInfo
+                                             });
         }
+    } else if ([notify.name isEqualToString:MPMoviePlayerFirstAudioFrameRenderedNotification]) {
+        far_costtime = (int)((long long int)([self getCurrentTime] * 1000) - prepared_time);
     }
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"RNRtmpEvent"
                                                         object:@{@"name": notify.name}];
 }
 
+- (void)handleBitrateRecalculated:(double)bitrate {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RNRtmpEvent"
+                                                        object:@{@"name": @"bitrate_recalculated",
+                                                                 @"bitrate": @(self.bitrateCalculator.bitrate)}];
+}
 
 @end
 
@@ -276,6 +365,55 @@ RCT_EXPORT_METHOD(unmute:(NSNumber * __nonnull)reactTag) {
               @"MovieScalingModeFill":@(MPMovieScalingModeFill)
 
               };
+}
+
+@end
+
+@implementation BitrateCalculator
+
+- (instancetype)init:(KslivePlayerView *)playerView {
+    if (self = [super init]) {
+        self.playerView = playerView;
+
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                      target:self
+                                                    selector:@selector(onTimer:)
+                                                    userInfo:nil
+                                                     repeats:YES];
+    }
+
+    return self;
+}
+
+- (double)bitrate {
+    return calculatedBitrate;
+}
+
+- (void)onTimer:(id)sender {
+    if (self.playerView) {
+        NSTimeInterval currentTime = [self.playerView getCurrentTime];
+
+        if (0 == lastCheckTime) {
+            lastCheckTime = currentTime;
+
+            return;
+        }
+
+        double flowSize = [self.playerView.player readSize];
+
+        calculatedBitrate = 8 * 1024.0 * (flowSize - lastSize) / (currentTime - lastCheckTime);
+        lastCheckTime = currentTime;
+        lastSize = flowSize;
+
+        [self.playerView handleBitrateRecalculated:self.bitrate];
+    }
+}
+
+- (void)cleanup {
+    if (self.timer) {
+        [self.timer invalidate];
+        self.timer = nil;
+    }
 }
 
 @end

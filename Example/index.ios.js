@@ -49,6 +49,9 @@ export default class Example extends Component {
     console.log(
       "React Native Received LoadState " + data.nativeEvent["state"]
     );
+    console.log(
+      "React Native Received LoadState Qos " + JSON.stringify(data.nativeEvent["qos"])
+    );
   }
 
   handleFirstVideoFrameRendered(data) {
@@ -85,7 +88,7 @@ export default class Example extends Component {
         onFirstVideoFrameRendered={(data) => {
           this.handleFirstVideoFrameRendered(data);
         }}
-        url="rtmp://edge-lb-b97e24af79104e09.elb.us-east-1.amazonaws.com:1935/edge/tune_in"/>
+        url="rtmp://mobile.kscvbu.cn/live"/>
 
       <Button
         onPress={() => {
