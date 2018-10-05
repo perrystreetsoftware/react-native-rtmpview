@@ -1,3 +1,5 @@
 rootProject.name = 'Example'
+include ':react-native-rtmpview'
+project(':react-native-rtmpview').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-rtmpview/android')
 
 include ':app'
