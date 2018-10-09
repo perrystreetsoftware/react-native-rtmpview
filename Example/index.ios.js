@@ -97,7 +97,7 @@ export default class Example extends Component {
         onBitrateRecalculated={(data) => {
           this.handleBitrateRecalculated(data);
         }}
-        url="rtmp://mobile.kscvbu.cn/live"/>
+        url="rtmp://stream1.livestreamingservices.com:1935/tvmlive/tvmlive"/>
 
       <Button
         onPress={() => {

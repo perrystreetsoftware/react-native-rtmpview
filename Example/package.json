@@ -7,15 +7,15 @@
 		"test": "jest"
 	},
 	"dependencies": {
-		"react": "16.0.0-alpha.6",
-		"react-native": "0.44.3",
+		"react": "16.5.0",
+		"react-native": "0.57.1",
 		"react-native-rtmpview": "^1.0.9"
 	},
 	"devDependencies": {
-		"babel-jest": "22.4.3",
-		"babel-preset-react-native": "4.0.0",
-		"jest": "22.4.3",
-		"react-test-renderer": "16.0.0-alpha.6"
+		"babel-jest": "23.2.0",
+                "metro-react-native-babel-preset": "*",
+		"jest": "23.2.0",
+		"react-test-renderer": "16.3.1"
 	},
 	"jest": {
 		"preset": "react-native"
