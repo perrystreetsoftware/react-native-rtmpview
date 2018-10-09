@@ -4475,10 +4475,10 @@ react-devtools-core@^2.0.8:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
-react-native-rtmpview@^1.0.8:
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/react-native-rtmpview/-/react-native-rtmpview-1.0.8.tgz#5ca167580dfe67a8e56ba6576054fb8de9090583"
-  integrity sha512-prXkaWD27dNtfTN4pEJ2WTC+Mh691AQy9buKAirl9QlDmhgMZh67MJJb6TXBQf65bC+Z/xxjoClYLXovicJAmw==
+react-native-rtmpview@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/react-native-rtmpview/-/react-native-rtmpview-1.0.9.tgz#cbce0bd2d5e11831c73a6529473cec7b235ea77c"
+  integrity sha512-PUJpo5NNUOsJ0FTqQoNKAmeniaClOvHDQYcKvc4lwjU5gntq7hFsOLo6bZ7U7U65L2CoFIpvMvrr40wiN3/uLQ==
   dependencies:
     prop-types "^15.6.1"
 
