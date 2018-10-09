@@ -21,7 +21,25 @@ Because react-native-rtmpview has cocoapod dependencies on third-party video pla
 
 ### Android installation
 
-This library does not yet work with Android devices.
+This library now works with Android clients. In your project's `settings.gradle` file, add:
+
+    include ':react-native-rtmpview'
+    project(':react-native-rtmpview').projectDir = new File(rootProject.projectDir, '<path_to>/node_modules/react-native-rtmpview/android')
+
+Then, in your `ReactApplication` class, make sure that the `getPackages()` method includes:
+
+    new RNRtmpViewPackage()
+
+For example:
+
+    @Override
+    protected List<ReactPackage> getPackages() {
+      return Arrays.<ReactPackage>asList(
+          new MainReactPackage(),
+          // other packages...
+            new RNRtmpViewPackage()
+      );
+    }
 
 
 ## Example
@@ -79,7 +97,11 @@ function properties of the view.
 
 ## Implementation details and alternatives
 
-react-native-rtmpview is based on [KSYLive](https://github.com/ksvc/KSYLive_iOS), which is a popular iOS library for video and RTMP streaming. The complete list of options for RTMP streaming on iOS can be found [here on StackOverflow](https://stackoverflow.com/questions/43872012/ios-rtmp-streaming-library-lflivekit-vs-videocore-lib-vs-alternative), and includes:
+react-native-rtmpview is designed to use the best-of-breed RTMP playback libraries on both iOS and Android.
+
+
+### iOS
+On iOS, react-native-rtmpview is based on [KSYLive](https://github.com/ksvc/KSYLive_iOS), which is a popular iOS library for video and RTMP streaming. The complete list of options for RTMP streaming on iOS can be found [here on StackOverflow](https://stackoverflow.com/questions/43872012/ios-rtmp-streaming-library-lflivekit-vs-videocore-lib-vs-alternative), and includes:
 
 * [HaishinKit (formerly lf)](https://github.com/shogo4405/HaishinKit.swift) - This library does not support RTMP playback (technically it does, but only as an '[experimental feature](https://github.com/shogo4405/HaishinKit.swift/issues/358)')
 * [LaiFeng iOS Live Kit](https://github.com/LaiFengiOS/LFLiveKit) - Popular library in terms of stars (3k+) but not updated since 2016, so effectively abandoned.
@@ -89,7 +111,16 @@ react-native-rtmpview is based on [KSYLive](https://github.com/ksvc/KSYLive_iOS)
 
 As a result, we elected to base our implementation for RTMP in React Native on the actively-maintained KSYLive_iOS library, because it was both the most full-featured and still actively maintained.
 
-We are actively investigating implementation options for Android.
+You will note that KSYLive itself publishes their own react native wrapper, which you will find at:
+[https://github.com/ksvc/react-native-video-player](https://github.com/ksvc/react-native-video-player)
+
+This is also of course a viable option for integrating an RTMP playback view within iOS and Android, however, this requires you to use the Kingsoft implementation on Android as well. Our library does NOT use Kingsoft for its Android implementation.
+
+### Android
+
+On Android, react-native-rtmpview is based on [ExoPlayer](https://github.com/google/ExoPlayer), which is supported and actively maintained by Google. ExoPlayer is a general-purpose media playback library, and in [version 2.5 added](https://medium.com/google-exoplayer/exoplayer-2-5-whats-new-b508c0ab606f) the [LibRtmp client for Android](https://github.com/ant-media/LibRtmp-Client-for-Android).
+
+Because of this, we felt that the ExoPlayer / LibRTMP solution was the obvious choice when implementing Android support. Clients of react-native-rtmpview will get best-of-breed player solutions on both platforms. 
 
 ## About the example configuration
 
@@ -99,7 +130,7 @@ You will note in the Example/package.json file that we have an explicit dependen
   "react-native-rtmpview": "*"
 ```
 
-We do not have a relative dependency (i.e., 
+We do not have a relative dependency (i.e.,
 
 ```
   "react-native-rtmpview": "file:.."
@@ -107,7 +138,7 @@ We do not have a relative dependency (i.e.,
 
 Relative dependencies are created by running `npm -i ../` and they create a symoblic link (`ln -s`) inside of `node_modules/<your_library>/`, and are preferable because changes you make at the root of your project in the actual source code of your library are immediately reflected within your Example project, thus making development of your library easier.
 
-We cannot do this; instead we must have a complete and unconnected copy of the project within `Example/node_modules/`. This means if you use the Example project to test/debug react-native-rtmpview, you will have to make those changes to code buried within `Example/node_modules/react-native-rtmpview`, and manually apply or copy those changes up one level at the root of the project. 
+We cannot do this; instead we must have a complete and unconnected copy of the project within `Example/node_modules/`. This means if you use the Example project to test/debug react-native-rtmpview, you will have to make those changes to code buried within `Example/node_modules/react-native-rtmpview`, and manually apply or copy those changes up one level at the root of the project.
 
 We are required to use this architecture because if you create a relative link, every time you launch the app by running `react-native run-ios`, you will see a redbox stating:
 
