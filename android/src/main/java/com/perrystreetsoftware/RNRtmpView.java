@@ -192,7 +192,7 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
 
         mExoPlayerView.setPlayer(mPlayer);
 
-        mExoPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIXED_WIDTH);
+        mExoPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_ZOOM);
         mPlayer.setVideoScalingMode(C.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
 
         // https://stackoverflow.com/questions/39836356/react-native-resize-custom-ui-component
@@ -205,7 +205,7 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
 
             @Override
             public void onRenderedFirstFrame() {
-
+                RNRtmpView.this.onFirstVideoFrameRendered();
             }
         });
         if (this.mShouldMute) {
@@ -253,6 +253,10 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
     }
 
     public void unmute() {
+        if (mLastAudioVolume == 0) {
+            mLastAudioVolume = 1.0f;
+        }
+
         mPlayer.setVolume(mLastAudioVolume);
     }
 
@@ -302,7 +306,6 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
 
     public void onFirstVideoFrameRendered() {
         WritableMap event = Arguments.createMap();
-        event.putString("message", "MyMessage");
 
         ReactContext reactContext = (ReactContext)getContext();
         reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
