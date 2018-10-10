@@ -107,6 +107,7 @@ On iOS, react-native-rtmpview is based on [KSYLive](https://github.com/ksvc/KSYL
 * [LaiFeng iOS Live Kit](https://github.com/LaiFengiOS/LFLiveKit) - Popular library in terms of stars (3k+) but not updated since 2016, so effectively abandoned.
 * [VideoCore](https://github.com/jgh-/VideoCore-Inactive) - Popular (1k+ stars), but library abandoned in 2015.
 * [react-native-nodemediaclient](https://github.com/NodeMedia/react-native-nodemediaclient) - The underlying native library is very limited and is still emerging in popularity (100+ stars). It does not surface as many playback events or provide as much configurabilty as other RTMP streaming libraries.
+* [VLCKit](https://code.videolan.org/videolan/VLCKit) - Publishes MobileVLCKit, which does work in iOS, but does not give enough configuration options and does not allow customization of the video buffer. This makes the library unreliable when playing back an RTMP stream that is flaky and leads to an extreme lag between the playback time and the live video time.
 * [KSYLive_iOS](https://github.com/ksvc/KSYLive_iOS) - Growing in popularity (500+ stars) and updated very recently (in 2018)
 
 As a result, we elected to base our implementation for RTMP in React Native on the actively-maintained KSYLive_iOS library, because it was both the most full-featured and still actively maintained.
