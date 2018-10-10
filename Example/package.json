@@ -7,13 +7,14 @@
 		"test": "jest"
 	},
 	"dependencies": {
+		"@babel/runtime": "^7.1.2",
 		"react": "16.5.0",
 		"react-native": "0.57.1",
 		"react-native-rtmpview": "^1.0.10"
 	},
 	"devDependencies": {
 		"babel-jest": "23.2.0",
-                "metro-react-native-babel-preset": "*",
+		"metro-react-native-babel-preset": "*",
 		"jest": "23.2.0",
 		"react-test-renderer": "16.3.1"
 	},
