@@ -46,6 +46,7 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
     private String mUrlString;
     private float mLastAudioVolume;
     private boolean mShouldMute;
+    private double mLastBitrateCalculation;
 
     public enum Commands {
         COMMAND_INITIALIZE("initialize"),
@@ -68,16 +69,6 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
     }
 
     public enum Events {
-//        EVENT_TOUCH("onVideoTouch"),
-//        EVENT_LOAD_START("onVideoLoadStart"),
-//        EVENT_LOAD("onVideoLoad"),
-//        EVENT_ERROR("onVideoError"),
-//        EVENT_PROGRESS("onVideoProgress"),
-//        EVENT_SEEK("onVideoSeek"),
-//        EVENT_END("onVideoEnd"),
-//        EVENT_STALLED("onPlaybackStalled"),
-//        EVENT_RESUME("onPlaybackResume"),
-//        EVENT_READY_FOR_DISPLAY("onReadyForDisplay");
         EVENT_BITRATE_RECALCULATED("onBitrateRecalculated"),
         EVENT_FIRST_VIDEO_FRAME_RENDERED("onFirstVideoFrameRendered"),
         EVENT_PLAYBACK_STATE("onPlaybackState"),
@@ -146,9 +137,9 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
             public void onLoadingChanged(boolean isLoading) {
                 Log.i(APP_NAME, String.format("onLoadingChanged to be %b %d %d", isLoading, mPlayer.getBufferedPercentage(), (int) mPlayer.getBufferedPosition()));
 
-                // Aggressivly seek to start of stream if we are starting a new load
+
                 if (isLoading) {
-                    mPlayer.seekTo(0);
+                    RNRtmpView.this.onPlaybackStateChanged(RNRtmpPlaybackState.Loading);
                 }
             }
 
@@ -157,10 +148,17 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
                 Log.i(APP_NAME, String.format("onPlayerStateChanged: %b %d", playWhenReady, playbackState));
 
                 if (playbackState == Player.STATE_ENDED) {
+                    RNRtmpView.this.onPlaybackStateChanged(RNRtmpPlaybackState.Stopped);
+
                     mPlayer.seekTo(0);
                     mPlayer.setPlayWhenReady(true);
+
                 } else if (playbackState == Player.STATE_READY) {
                     mPlayer.seekTo(0);
+
+                    RNRtmpView.this.onPlaybackStateChanged(RNRtmpPlaybackState.Playing);
+                } else if (playbackState == Player.STATE_BUFFERING) {
+                    RNRtmpView.this.onPlaybackStateChanged(RNRtmpPlaybackState.Buffering);
                 }
             }
 
@@ -177,11 +175,13 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
             @Override
             public void onPlayerError(ExoPlaybackException error) {
                 Log.i(APP_NAME, "onPlayerError");
+                RNRtmpView.this.onPlaybackStateChanged(RNRtmpPlaybackState.Error, error);
             }
 
             @Override
             public void onPositionDiscontinuity(int reason) {
                 Log.i(APP_NAME, "onPositionDiscontinuity");
+                RNRtmpView.this.onPlaybackStateChanged(RNRtmpPlaybackState.Discontinuity);
             }
 
             @Override
@@ -192,6 +192,7 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
             @Override
             public void onSeekProcessed() {
                 Log.i(APP_NAME, "onSeekProcessed");
+                RNRtmpView.this.onPlaybackStateChanged(RNRtmpPlaybackState.SeekingForward);
             }
         });
 
@@ -297,6 +298,8 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
 
     @Override
     public void onBitrateRecalculated(double bitrateInKbps) {
+        this.mLastBitrateCalculation = bitrateInKbps;
+
         Log.i(APP_NAME, String.format("onBitrateCalculated: %f", bitrateInKbps));
 
         WritableMap event = Arguments.createMap();
@@ -317,5 +320,89 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
                 getId(),
                 Events.EVENT_FIRST_VIDEO_FRAME_RENDERED.toString(),
                 event);
+    }
+
+    public enum RNRtmpLoadState {
+        Unknown("Unknown"),
+        Playable("Playable"),
+        PlayThroughOK("PlayThroughOK"),
+        Stalled("Stalled");
+
+        private final String mFieldDescription;
+
+        RNRtmpLoadState(String value) {
+            mFieldDescription = value;
+        }
+
+        public String getFieldDescription() {
+            return this.mFieldDescription;
+        }
+    }
+
+
+    public void onLoadStateChanged(RNRtmpLoadState loadState) {
+        WritableMap event = Arguments.createMap();
+        event.putString("state", loadState.getFieldDescription());
+
+        ReactContext reactContext = (ReactContext)getContext();
+        reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
+                getId(),
+                Events.EVENT_LOAD_STATE.toString(),
+                event);
+    }
+
+    public enum RNRtmpPlaybackState {
+        Stopped("Stopped"),
+        Playing("Playing"),
+        Buffering("Buffering"),
+        Loading("Loading"),
+        Paused("Paused"),
+        Error("Error"),
+        Discontinuity("Discontinuity"),
+        SeekingForward("SeekingForward"),
+        SeekingBackgward("SeekingBackward");
+
+        private final String mFieldDescription;
+
+        RNRtmpPlaybackState(String value) {
+            mFieldDescription = value;
+        }
+
+        public String getFieldDescription() {
+            return this.mFieldDescription;
+        }
+    }
+
+    public void onPlaybackStateChanged(RNRtmpPlaybackState playbackState) {
+        onPlaybackStateChanged(playbackState, null);
+    }
+
+    public void onPlaybackStateChanged(RNRtmpPlaybackState playbackState, Throwable error) {
+        WritableMap event = Arguments.createMap();
+        event.putString("state", playbackState.getFieldDescription());
+
+        if (error != null) {
+            event.putString("error", error.toString());
+        }
+
+        event.putMap("qos", getQos());
+
+        ReactContext reactContext = (ReactContext)getContext();
+        reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
+                getId(),
+                Events.EVENT_PLAYBACK_STATE.toString(),
+                event);
+    }
+
+    public WritableMap getQos() {
+        WritableMap qos = Arguments.createMap();
+        qos.putString("bitrate", String.format(Locale.US, "%f", mLastBitrateCalculation));
+        qos.putString("playback_state", String.format(Locale.US, "%d", mPlayer.getPlaybackState()));
+        qos.putString("buffered_percentage", String.format(Locale.US, "%d", mPlayer.getBufferedPercentage()));
+        qos.putString("buffered_position", String.format(Locale.US, "%d", mPlayer.getBufferedPosition()));
+        qos.putString("current_position", String.format(Locale.US, "%d", mPlayer.getCurrentPosition()));
+        qos.putString("volume", String.format(Locale.US, "%f", mPlayer.getVolume()));
+
+        return qos;
     }
 }
