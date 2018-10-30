@@ -137,8 +137,10 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
             public void onLoadingChanged(boolean isLoading) {
                 Log.i(APP_NAME, String.format("onLoadingChanged to be %b %d %d", isLoading, mPlayer.getBufferedPercentage(), (int) mPlayer.getBufferedPosition()));
 
+                // Aggressively seek to start of stream if starting a new load
 
                 if (isLoading) {
+                    mPlayer.seekTo(0);
                     RNRtmpView.this.onPlaybackStateChanged(RNRtmpPlaybackState.Loading);
                 }
             }
