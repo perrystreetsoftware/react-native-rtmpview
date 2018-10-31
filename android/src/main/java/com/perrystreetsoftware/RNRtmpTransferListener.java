@@ -22,6 +22,7 @@ public class RNRtmpTransferListener implements TransferListener<RtmpDataSource> 
     private WeakReference<RtmpBitrateListener> mListener;
     private Date mLastCheckTime;
     private long mBytesTransferredSinceLastCheck;
+    private boolean mDisposed;
 
     private final IncomingHandler mHandler = new IncomingHandler(this);
 
@@ -56,28 +57,37 @@ public class RNRtmpTransferListener implements TransferListener<RtmpDataSource> 
         this.start();
     }
 
+    public void dispose() {
+        this.mHandler.removeMessages(MSG_CHECK_BITRATE);
+        this.mDisposed = true;
+    }
+
     public void start() {
-        this.mBytesTransferredSinceLastCheck = 0;
-        this.mHandler.sendMessageDelayed(Message.obtain(this.mHandler, MSG_CHECK_BITRATE), RECALC_RATE_IN_MS);
+        if (!this.mDisposed) {
+            this.mBytesTransferredSinceLastCheck = 0;
+            this.mHandler.sendMessageDelayed(Message.obtain(this.mHandler, MSG_CHECK_BITRATE), RECALC_RATE_IN_MS);
+        }
     }
 
     public void calculateNewBitrate() {
-        Date now = new Date();
-        if (mLastCheckTime != null) {
-            long seconds = (now.getTime() - mLastCheckTime.getTime()) / 1000;
-            double bitrateInKbps = (((double)this.mBytesTransferredSinceLastCheck * 8.f)/ (double)seconds) / 1000f;
+        if (!this.mDisposed) {
+            Date now = new Date();
+            if (mLastCheckTime != null) {
+                long seconds = (now.getTime() - mLastCheckTime.getTime()) / 1000;
+                double bitrateInKbps = (((double) this.mBytesTransferredSinceLastCheck * 8.f) / (double) seconds) / 1000f;
 
-            RtmpBitrateListener listener = this.mListener.get();
+                RtmpBitrateListener listener = this.mListener.get();
 
-            if (listener != null) {
-                listener.onBitrateRecalculated(bitrateInKbps);
+                if (listener != null) {
+                    listener.onBitrateRecalculated(bitrateInKbps);
+                }
             }
+
+            mLastCheckTime = now;
+            this.mBytesTransferredSinceLastCheck = 0;
+
+            this.mHandler.sendMessageDelayed(Message.obtain(this.mHandler, MSG_CHECK_BITRATE), RECALC_RATE_IN_MS);
         }
-
-        mLastCheckTime = now;
-        this.mBytesTransferredSinceLastCheck = 0;
-
-        this.mHandler.sendMessageDelayed(Message.obtain(this.mHandler, MSG_CHECK_BITRATE), RECALC_RATE_IN_MS);
     }
 
     @Override
@@ -92,6 +102,5 @@ public class RNRtmpTransferListener implements TransferListener<RtmpDataSource> 
 
     @Override
     public void onTransferEnd(RtmpDataSource source) {
-
     }
 }
