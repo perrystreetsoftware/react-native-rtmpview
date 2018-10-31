@@ -236,12 +236,16 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
     };
 
     public void play() {
-        String rtmpUrl = this.mUrlString;
-        RtmpDataSourceFactory rtmpDataSourceFactory = new RtmpDataSourceFactory(new RNRtmpTransferListener(this));
-        MediaSource videoSource = new ExtractorMediaSource.Factory(rtmpDataSourceFactory)
-                .createMediaSource(Uri.parse(rtmpUrl + " live=1 buffer=1000 timeout=3"));
-        mPlayer.prepare(videoSource);
-        mPlayer.setPlayWhenReady(true);
+        if (mPlayer != null && mPlayer.getPlaybackState() == Player.STATE_IDLE) {
+            String rtmpUrl = this.mUrlString;
+            RtmpDataSourceFactory rtmpDataSourceFactory = new RtmpDataSourceFactory(new RNRtmpTransferListener(this));
+            MediaSource videoSource = new ExtractorMediaSource.Factory(rtmpDataSourceFactory)
+                    .createMediaSource(Uri.parse(rtmpUrl + " live=1 buffer=1000 timeout=3"));
+            mPlayer.prepare(videoSource);
+            mPlayer.setPlayWhenReady(true);
+        } else {
+            Log.i(APP_NAME, "Unable to play; not idle");
+        }
     }
 
     public void pause() {
