@@ -11,6 +11,7 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -108,6 +109,7 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
         inflate(getContext(), R.layout.react_rtmp_view,this);
 
         mExoPlayerView = findViewById(R.id.player_view);
+        ((ThemedReactContext)context).addLifecycleEventListener(this);
     }
 
     public void initialize() {
@@ -270,17 +272,21 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
 
     @Override
     public void onHostResume() {
-
+        Log.i(APP_NAME, "Lifecycle: onHostResume");
+        play();
     }
 
     @Override
     public void onHostPause() {
-
+        Log.i(APP_NAME, "Lifecycle: onHostPause");
+        stop();
     }
 
     @Override
     public void onHostDestroy() {
-
+        Log.i(APP_NAME, "Lifecycle: onHostDestroy");
+        cleanupMediaPlayerResources();
+        release();
     }
 
     public void cleanupMediaPlayerResources() {
