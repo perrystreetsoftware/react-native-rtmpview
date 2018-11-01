@@ -259,11 +259,15 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
     }
 
     public void pause() {
-        mPlayer.stop();
+        if (this.mPlayer != null) {
+            mPlayer.stop();
+        }
     }
 
     public void stop() {
-        mPlayer.stop();
+        if (this.mPlayer != null) {
+            mPlayer.stop();
+        }
     }
 
     public void setShouldMute(boolean value) {
@@ -273,7 +277,9 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
     public void mute() {
         mLastAudioVolume = mPlayer.getVolume();
 
-        mPlayer.setVolume(0);
+        if (this.mPlayer != null) {
+            mPlayer.setVolume(0);
+        }
     }
 
     public void unmute() {
@@ -281,7 +287,9 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
             mLastAudioVolume = 1.0f;
         }
 
-        mPlayer.setVolume(mLastAudioVolume);
+        if (this.mPlayer != null) {
+            mPlayer.setVolume(mLastAudioVolume);
+        }
     }
 
     @Override
