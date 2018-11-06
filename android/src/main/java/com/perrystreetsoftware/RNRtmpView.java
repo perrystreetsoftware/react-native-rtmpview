@@ -153,11 +153,10 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
                 Log.i(APP_NAME, String.format("onPlayerStateChanged: %b %d", playWhenReady, playbackState));
 
                 if (playbackState == Player.STATE_ENDED) {
-                    RNRtmpView.this.onPlaybackStateChanged(RNRtmpPlaybackState.Stopped);
-
                     mPlayer.seekTo(0);
                     mPlayer.setPlayWhenReady(true);
 
+                    RNRtmpView.this.onPlaybackStateChanged(RNRtmpPlaybackState.Stopped);
                 } else if (playbackState == Player.STATE_READY) {
                     mPlayer.seekTo(0);
 
@@ -410,6 +409,8 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
     public void onPlaybackStateChanged(RNRtmpPlaybackState playbackState, Throwable error) {
         WritableMap event = Arguments.createMap();
         event.putString("state", playbackState.getFieldDescription());
+        event.putInt("playback_state", mPlayer.getPlaybackState());
+        event.putBoolean("play_when_ready", mPlayer.getPlayWhenReady());
 
         if (error != null) {
             event.putString("error", error.toString());
