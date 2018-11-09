@@ -158,8 +158,7 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
 
                     RNRtmpView.this.onPlaybackStateChanged(RNRtmpPlaybackState.Stopped);
                 } else if (playbackState == Player.STATE_READY) {
-                    mPlayer.seekTo(0);
-
+                    RNRtmpView.this.onFirstVideoFrameRendered();
                     RNRtmpView.this.onPlaybackStateChanged(RNRtmpPlaybackState.Playing);
                 } else if (playbackState == Player.STATE_BUFFERING) {
                     RNRtmpView.this.onPlaybackStateChanged(RNRtmpPlaybackState.Buffering);
@@ -215,7 +214,9 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
 
             @Override
             public void onRenderedFirstFrame() {
-                RNRtmpView.this.onFirstVideoFrameRendered();
+                // This event triggers too early, based on our tests.
+                // The more reliable indicator of video rendering happens
+                // when we hear Player.STATE_READY
             }
         });
         if (this.mShouldMute) {
