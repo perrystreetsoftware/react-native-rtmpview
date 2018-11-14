@@ -249,7 +249,7 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
             String rtmpUrl = this.mUrlString;
             RtmpDataSourceFactory rtmpDataSourceFactory = new RtmpDataSourceFactory(mTransferListener);
             MediaSource videoSource = new ExtractorMediaSource.Factory(rtmpDataSourceFactory)
-                    .createMediaSource(Uri.parse(rtmpUrl + " live=1 buffer=1000 timeout=3"));
+                    .createMediaSource(Uri.parse(rtmpUrl + " live=1"));
             mPlayer.prepare(videoSource);
 
             mPlayer.setPlayWhenReady(true);
