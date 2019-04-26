@@ -4,6 +4,7 @@ def DEFAULT_COMPILE_SDK_VERSION             = 26
 def DEFAULT_BUILD_TOOLS_VERSION             = "28.0.2"
 def DEFAULT_TARGET_SDK_VERSION              = 26
 def DEFAULT_ANDROID_SUPPORT_VERSION         = "26.1.0"
+def DEFAULT_EXOPLAYER_VERSION               = "2.9.6"
 
 import groovy.json.JsonSlurper
 
@@ -58,10 +59,11 @@ repositories {
 
 dependencies {
     def androidSupportVersion = rootProject.hasProperty("androidSupportVersion")  ? rootProject.androidSupportVersion : DEFAULT_ANDROID_SUPPORT_VERSION
+    def exoPlayerVersion = rootProject.hasProperty("exoPlayerVersion")  ? rootProject.androidSupportVersion : DEFAULT_EXOPLAYER_VERSION
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.android.support:appcompat-v7:$androidSupportVersion"
-    implementation 'com.google.android.exoplayer:exoplayer:2.8.4'
-    implementation 'com.google.android.exoplayer:extension-rtmp:2.8.4'
+    implementation "com.google.android.exoplayer:exoplayer:$exoPlayerVersion"
+    implementation "com.google.android.exoplayer:extension-rtmp:$exoPlayerVersion"
     implementation 'com.facebook.react:react-native:+'
 }
