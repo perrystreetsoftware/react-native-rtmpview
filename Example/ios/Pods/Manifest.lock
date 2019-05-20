@@ -1,4 +1,11 @@
 PODS:
+  - boost-for-react-native (1.63.0)
+  - DoubleConversion (1.1.5)
+  - Folly (2018.10.22.00):
+    - boost-for-react-native
+    - DoubleConversion
+    - glog
+  - glog (0.3.4)
   - GPUImage (0.1.7)
   - libksygpulive/base (3.0.4)
   - libksygpulive/KSYGPUResource (3.0.4)
@@ -15,30 +22,58 @@ PODS:
     - libksygpulive/mediacore_enc_lite
     - libksygpulive/yuv
   - libksygpulive/yuv (3.0.4)
-  - PureLayout (3.1.2)
-  - React (0.57.1):
-    - React/Core (= 0.57.1)
-  - react-native-rtmpview (1.0.9):
+  - PureLayout (3.1.4)
+  - React (0.59.8):
+    - React/Core (= 0.59.8)
+  - react-native-rtmpview (1.0.21):
     - libksygpulive/KSYGPUResource
     - libksygpulive/libksygpulive
     - PureLayout
     - React
-  - React/Core (0.57.1):
-    - yoga (= 0.57.1.React)
-  - yoga (0.57.1.React)
+  - React/Core (0.59.8):
+    - yoga (= 0.59.8.React)
+  - React/CxxBridge (0.59.8):
+    - Folly (= 2018.10.22.00)
+    - React/Core
+    - React/cxxreact
+    - React/jsiexecutor
+  - React/cxxreact (0.59.8):
+    - boost-for-react-native (= 1.63.0)
+    - DoubleConversion
+    - Folly (= 2018.10.22.00)
+    - glog
+    - React/jsinspector
+  - React/jsi (0.59.8):
+    - DoubleConversion
+    - Folly (= 2018.10.22.00)
+    - glog
+  - React/jsiexecutor (0.59.8):
+    - DoubleConversion
+    - Folly (= 2018.10.22.00)
+    - glog
+    - React/cxxreact
+    - React/jsi
+  - React/jsinspector (0.59.8)
+  - yoga (0.59.8.React)
 
 DEPENDENCIES:
-  - React (from `../node_modules/react-native`)
+  - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - react-native-rtmpview (from `../node_modules/react-native-rtmpview`)
+  - React/CxxBridge (from `../node_modules/react-native`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - boost-for-react-native
+    - DoubleConversion
+    - glog
     - GPUImage
     - libksygpulive
     - PureLayout
 
 EXTERNAL SOURCES:
+  Folly:
+    :podspec: "../node_modules/react-native/third-party-podspecs/Folly.podspec"
   React:
     :path: "../node_modules/react-native"
   react-native-rtmpview:
@@ -47,13 +82,17 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
+  DoubleConversion: e22e0762848812a87afd67ffda3998d9ef29170c
+  Folly: de497beb10f102453a1afa9edbf8cf8a251890de
+  glog: 1de0bb937dccdc981596d3b5825ebfb765017ded
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   libksygpulive: aca3eb30e7a38ee6565feb52feb82ccc0103ce43
-  PureLayout: 4634d0b61e3b5021166e8ec7c18e9e0ca0720c8b
-  React: 1fe0eb13d90b625d94c3b117c274dcfd2e760e11
-  react-native-rtmpview: 2819e617700e0541c355c70bfe526a6b9e1a17de
-  yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
+  PureLayout: f08c01b8dec00bb14a1fefa3de4c7d9c265df85e
+  React: 76e6aa2b87d05eb6cccb6926d72685c9a07df152
+  react-native-rtmpview: 2e767d0d282e46ebd88063453968de7369369009
+  yoga: 92b2102c3d373d1a790db4ab761d2b0ffc634f64
 
-PODFILE CHECKSUM: 0a0c224cee03a0be17d396da6950330e65685ed5
+PODFILE CHECKSUM: 587c2123e9ddc5b868a41070c30627bc74e1d3bb
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.1
