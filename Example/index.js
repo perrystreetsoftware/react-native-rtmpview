@@ -81,48 +81,48 @@ export default class Example extends Component {
   render() {
     return (
       <View style={styles.container}>
-      <RtmpView
-        style={styles.player}
-        shouldMute={false}
-        ref={e => { this.player = e; }}
-        onPlaybackState={(data) => {
-          this.handlePlaybackState(data);
-        }}
-        onLoadState={(data) => {
-          this.handleLoadState(data);
-        }}
-        onFirstVideoFrameRendered={(data) => {
-          this.handleFirstVideoFrameRendered(data);
-        }}
-        onBitrateRecalculated={(data) => {
-          this.handleBitrateRecalculated(data);
-        }}
-        url="rtmp://stream1.livestreamingservices.com:1935/tvmlive/tvmlive"/>
+        <RtmpView
+          style={styles.player}
+          shouldMute={false}
+          ref={e => { this.player = e; }}
+          onPlaybackState={(data) => {
+            this.handlePlaybackState(data);
+          }}
+          onLoadState={(data) => {
+            this.handleLoadState(data);
+          }}
+          onFirstVideoFrameRendered={(data) => {
+            this.handleFirstVideoFrameRendered(data);
+          }}
+          onBitrateRecalculated={(data) => {
+            this.handleBitrateRecalculated(data);
+          }}
+          url="rtmp://stream1.livestreamingservices.com:1935/tvmlive/tvmlive" />
 
-      <Button
-        onPress={() => {
-          this.player.pause()
-        }}
-        title="Pause"
-      />
-      <Button
-        onPress={() => {
-          this.player.play()
-        }}
-        title="Play"
-      />
-      <Button
-        onPress={() => {
-          this.player.mute()
-        }}
-        title="Mute"
-      />
-      <Button
-        onPress={() => {
-          this.player.unmute()
-        }}
-        title="Unmute"
-      />
+        <Button
+          onPress={() => {
+            this.player.pause()
+          }}
+          title="Pause"
+        />
+        <Button
+          onPress={() => {
+            this.player.play()
+          }}
+          title="Play"
+        />
+        <Button
+          onPress={() => {
+            this.player.mute()
+          }}
+          title="Mute"
+        />
+        <Button
+          onPress={() => {
+            this.player.unmute()
+          }}
+          title="Unmute"
+        />
       </View>
     );
   }
