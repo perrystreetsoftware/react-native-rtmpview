@@ -2,7 +2,6 @@ CLANG_MODULES_AUTOLINK = YES
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/GPUImage" "${PODS_ROOT}/Headers/Public/PureLayout" "${PODS_ROOT}/Headers/Public/libksygpulive"
 LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/GPUImage" "${PODS_CONFIGURATION_BUILD_DIR}/PureLayout" "${PODS_CONFIGURATION_BUILD_DIR}/libksygpulive" "${PODS_ROOT}/libksygpulive/prebuilt/libs"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/GPUImage" -isystem "${PODS_ROOT}/Headers/Public/PureLayout" -isystem "${PODS_ROOT}/Headers/Public/libksygpulive"
 OTHER_LDFLAGS = $(inherited) -ObjC -l"GPUImage" -l"PureLayout" -l"bz2" -l"iconv" -l"ksybase" -l"ksygpufilter" -l"ksymediacodec" -l"ksymediacore_enc_base" -l"ksymediacore_enc_lite" -l"ksyplayer" -l"ksystreamerbase" -l"ksystreamerengine" -l"ksyyuv" -l"libksygpulive" -l"stdc++.6" -l"z" -framework "AVFoundation" -framework "CoreMedia" -framework "OpenGLES" -framework "QuartzCore" -framework "VideoToolbox"
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)

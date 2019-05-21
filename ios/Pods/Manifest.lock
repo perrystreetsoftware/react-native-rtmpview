@@ -23,7 +23,7 @@ DEPENDENCIES:
   - PureLayout
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - GPUImage
     - libksygpulive
     - PureLayout
@@ -35,4 +35,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 695472c89f6d1bdcf5b825de76c1c688ec19332a
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.6.1

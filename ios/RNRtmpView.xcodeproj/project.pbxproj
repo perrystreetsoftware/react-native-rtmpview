@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		79DA1211CA89BE5215BEACEF /* libPods-RNRtmpView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD33E0ED450396860E101D4C /* libPods-RNRtmpView.a */; };
 		B3E7B58A1CC2AC0600A0062D /* RNRtmpView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RNRtmpView.m */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +31,7 @@
 		B3E7B5881CC2AC0600A0062D /* RNRtmpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNRtmpView.h; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* RNRtmpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNRtmpView.m; sourceTree = "<group>"; };
 		CFEFB63FE5A8E0BFF017DAEB /* Pods-RNRtmpView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNRtmpView.release.xcconfig"; path = "Pods/Target Support Files/Pods-RNRtmpView/Pods-RNRtmpView.release.xcconfig"; sourceTree = "<group>"; };
+		DD33E0ED450396860E101D4C /* libPods-RNRtmpView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNRtmpView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79DA1211CA89BE5215BEACEF /* libPods-RNRtmpView.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +68,7 @@
 			children = (
 				615E416E207852930037A0E7 /* libGPUImage.a */,
 				615E416C207852890037A0E7 /* liblibksygpulive.a */,
+				DD33E0ED450396860E101D4C /* libPods-RNRtmpView.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
