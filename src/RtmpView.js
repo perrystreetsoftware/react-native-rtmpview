@@ -47,7 +47,7 @@ class RtmpView extends Component {
   initialize() {
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(this.refs[RCT_VIDEO_REF]),
-      UIManager.RNRtmpView.Commands.initialize,
+      UIManager.getViewManagerConfig('RNRtmpView').Commands.initialize,
       null
     );
   }
@@ -55,7 +55,7 @@ class RtmpView extends Component {
   pause() {
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(this.refs[RCT_VIDEO_REF]),
-      UIManager.RNRtmpView.Commands.pause,
+      UIManager.getViewManagerConfig('RNRtmpView').Commands.pause,
       null
     );
   }
@@ -63,7 +63,7 @@ class RtmpView extends Component {
   play() {
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(this.refs[RCT_VIDEO_REF]),
-      UIManager.RNRtmpView.Commands.play,
+      UIManager.getViewManagerConfig('RNRtmpView').Commands.play,
       null
     );
   }
@@ -71,7 +71,7 @@ class RtmpView extends Component {
   stop() {
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(this.refs[RCT_VIDEO_REF]),
-      UIManager.RNRtmpView.Commands.stop,
+      UIManager.getViewManagerConfig('RNRtmpView').Commands.stop,
       null
     );
   }
@@ -79,7 +79,7 @@ class RtmpView extends Component {
   mute() {
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(this.refs[RCT_VIDEO_REF]),
-      UIManager.RNRtmpView.Commands.mute,
+      UIManager.getViewManagerConfig('RNRtmpView').Commands.mute,
       null
     );
   }
@@ -87,7 +87,7 @@ class RtmpView extends Component {
   unmute() {
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(this.refs[RCT_VIDEO_REF]),
-      UIManager.RNRtmpView.Commands.unmute,
+      UIManager.getViewManagerConfig('RNRtmpView').Commands.unmute,
       null
     );
   }

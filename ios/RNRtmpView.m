@@ -369,6 +369,10 @@ RCT_EXPORT_METHOD(unmute:(NSNumber * __nonnull)reactTag) {
               };
 }
 
++ (BOOL)requiresMainQueueSetup {
+    return YES;
+}
+
 @end
 
 @implementation BitrateCalculator
