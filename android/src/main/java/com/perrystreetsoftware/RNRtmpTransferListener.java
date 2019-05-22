@@ -5,13 +5,14 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 
 import com.google.android.exoplayer2.ext.rtmp.RtmpDataSource;
+import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DataSpec;
 import com.google.android.exoplayer2.upstream.TransferListener;
 
 import java.lang.ref.WeakReference;
 import java.util.Date;
 
-public class RNRtmpTransferListener implements TransferListener<RtmpDataSource> {
+public class RNRtmpTransferListener implements TransferListener {
     static final int MSG_CHECK_BITRATE = 0;
     static final int RECALC_RATE_IN_MS = 5000;
 
@@ -91,16 +92,22 @@ public class RNRtmpTransferListener implements TransferListener<RtmpDataSource> 
     }
 
     @Override
-    public void onTransferStart(RtmpDataSource source, DataSpec dataSpec) {
+    public void onTransferInitializing(DataSource source, DataSpec dataSpec, boolean isNetwork) {
 
     }
 
     @Override
-    public void onBytesTransferred(RtmpDataSource source, int bytesTransferred) {
+    public void onTransferStart(DataSource source, DataSpec dataSpec, boolean isNetwork) {
+
+    }
+
+    @Override
+    public void onBytesTransferred(DataSource source, DataSpec dataSpec, boolean isNetwork, int bytesTransferred) {
         this.mBytesTransferredSinceLastCheck += bytesTransferred;
     }
 
     @Override
-    public void onTransferEnd(RtmpDataSource source) {
+    public void onTransferEnd(DataSource source, DataSpec dataSpec, boolean isNetwork) {
+
     }
 }
