@@ -124,7 +124,7 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
         TrackSelector trackSelector =
                 new DefaultTrackSelector(videoTrackSelectionFactory);
         RenderersFactory renderersFactory = new DefaultRenderersFactory(this.getContext());
-        mPlayer = ExoPlayerFactory.newSimpleInstance(renderersFactory, trackSelector, loadControl);
+        mPlayer = ExoPlayerFactory.newSimpleInstance(this.getContext(), renderersFactory, trackSelector, loadControl);
         mPlayer.addListener(new Player.EventListener() {
             @Override
             public void onTimelineChanged(Timeline timeline, @Nullable Object manifest, int reason) {
