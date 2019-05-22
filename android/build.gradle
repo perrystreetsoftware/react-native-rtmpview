@@ -59,7 +59,7 @@ repositories {
 
 dependencies {
     def androidSupportVersion = rootProject.hasProperty("androidSupportVersion")  ? rootProject.androidSupportVersion : DEFAULT_ANDROID_SUPPORT_VERSION
-    def exoPlayerVersion = rootProject.hasProperty("exoPlayerVersion")  ? rootProject.androidSupportVersion : DEFAULT_EXOPLAYER_VERSION
+    def exoPlayerVersion = rootProject.hasProperty("exoPlayerVersion")  ? rootProject.exoPlayerVersion : DEFAULT_EXOPLAYER_VERSION
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.android.support:appcompat-v7:$androidSupportVersion"
