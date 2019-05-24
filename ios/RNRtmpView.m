@@ -101,7 +101,13 @@ RCT_ENUM_CONVERTER(MPMovieLoadState,(@{@"MovieLoadStateUnknown":@(MPMovieLoadSta
 - (void)cleanup {
     [self.bitrateCalculator cleanup];
     [self releaseObservers:self.player];
-    [self.player stop];
+    [self stopPlayer];
+}
+
+- (void)stopPlayer {
+    if (self.player.playbackState != MPMoviePlaybackStateStopped) {
+        [self.player stop];
+    }
 }
 
 - (void)initialize {
@@ -311,7 +317,7 @@ RCT_EXPORT_METHOD(stop:(NSNumber * __nonnull)reactTag) {
             RCTLogError(@"Invalid view returned from registry, expecting MyCoolView, got: %@", view);
         }
         // Call your native component's method here
-        [view.player stop];
+        [view stopPlayer];
     }];
 }
 
