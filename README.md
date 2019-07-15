@@ -75,7 +75,7 @@ export default class Example extends Component {
             this.handleFirstVideoFrameRendered(data);
           }}
           url="rtmp://localhost:1935/live/stream"
-         />
+        />
     )
   }
 }
