@@ -64,17 +64,28 @@ react-native-rtmpview includes an example project to help get you started. To bu
 
 import { RtmpView } from 'react-native-rtmpview';
 
-<RtmpView
-  style={styles.player}
-  shouldMute={true}
-  ref={e => { this.player = e; }}
-  onPlaybackState={(data) => {
-    this.handlePlaybackState(data);
-  }}
-  onFirstVideoFrameRendered={(data) => {
-    this.handleFirstVideoFrameRendered(data);
-  }}
-  url="rtmp://localhost:1935/live/stream"/>
+export default class Example extends Component {
+  componentDidMount() {
+    this.player.initialize();
+  }
+  
+  render() {
+    return (
+        <RtmpView
+          style={styles.player}
+          shouldMute={true}
+          ref={e => { this.player = e; }}
+          onPlaybackState={(data) => {
+            this.handlePlaybackState(data);
+          }}
+          onFirstVideoFrameRendered={(data) => {
+            this.handleFirstVideoFrameRendered(data);
+          }}
+          url="rtmp://localhost:1935/live/stream"
+        />
+    )
+  }
+}
 
 ```
 
