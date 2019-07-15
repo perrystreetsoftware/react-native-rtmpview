@@ -24,14 +24,20 @@ Because react-native-rtmpview has cocoapod dependencies on third-party video pla
 This library now works with Android clients. In your project's `settings.gradle` file, add:
 
     include ':react-native-rtmpview'
-    project(':react-native-rtmpview').projectDir = new File(rootProject.projectDir, '<path_to>/node_modules/react-native-rtmpview/android')
+    project(':react-native-rtmpview').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-rtmpview/android')
 
-Then, in your `ReactApplication` class, make sure that the `getPackages()` method includes:
+In the `android/app/build.gradle` file, under dependencies, add:
+```
+implementation project(':react-native-rtmpview')
+```
+Then, in your `ReactApplication` class, under `MainApplication.java`, import the package and make sure that the `getPackages()` method includes:
 
     new RNRtmpViewPackage()
 
 For example:
 
+    import com.perrystreetsoftware.RNRtmpViewPackage;
+    
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
@@ -40,6 +46,7 @@ For example:
             new RNRtmpViewPackage()
       );
     }
+
 
 
 ## Example
