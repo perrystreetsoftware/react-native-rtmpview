@@ -93,17 +93,20 @@ class RtmpView extends Component {
   }
 
   render() {
-    return <RNRtmpView
-      ref={RCT_VIDEO_REF}
-      scalingMode='MovieScalingModeAspectFill'
-      shouldMute={false}
-      onPlaybackState={this._onPlaybackState.bind(this)}
-      onLoadState={this._onLoadState.bind(this)}
-      onFirstVideoFrameRendered={this._onFirstVideoFrameRendered.bind(this)}
-      onBitrateRecalculated={this._onBitrateRecalculated.bind(this)}
-      {...this.props}
-    />;
-  };
+    return (
+      <RNRtmpView
+        ref={RCT_VIDEO_REF}
+        scalingMode='MovieScalingModeAspectFill'
+        shouldMute={false}
+        backgroundPlay={true}
+        onPlaybackState={this._onPlaybackState.bind(this)}
+        onLoadState={this._onLoadState.bind(this)}
+        onFirstVideoFrameRendered={this._onFirstVideoFrameRendered.bind(this)}
+        onBitrateRecalculated={this._onBitrateRecalculated.bind(this)}
+        {...this.props}
+      />
+    )
+  }
 }
 
 RtmpView.name = RCT_VIDEO_REF;
@@ -111,6 +114,7 @@ RtmpView.propTypes = {
   url: PropTypes.string,
   scalingMode: PropTypes.string,
   shouldMute: PropTypes.bool,
+  backgroundPlay: PropTypes.bool,
   onPlaybackState: PropTypes.func,
   onLoadState: PropTypes.func,
   onFirstVideoFrameRendered: PropTypes.func,
