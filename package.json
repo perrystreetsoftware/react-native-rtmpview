@@ -1,7 +1,7 @@
 {
-  "name": "react-native-rtmpview",
+  "name": "@matinzd/react-native-rtmpview",
   "title": "React Native RtmpView",
-  "version": "1.0.26",
+  "version": "1.0.27",
   "summary": "RTMP in RN",
   "description": "Show RTMP views on iOS + Android using React Native",
   "main": "index.js",
@@ -11,15 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/perrystreetsoftware/react-native-rtmpview.git",
-    "baseUrl": "https://github.com/perrystreetsoftware/react-native-rtmpview"
+    "url": "git+https://github.com/matinzd/react-native-rtmpview.git",
+    "baseUrl": "https://github.com/matinzd/react-native-rtmpview"
   },
   "keywords": [
     "react-native"
   ],
   "author": {
-    "name": "Eric Silverberg",
-    "email": "eric@s*****.com"
+    "name": "Matin ZD",
+    "email": "zadehdolatabad@gmail.com"
   },
   "license": "MIT",
   "licenseFilename": "LICENSE",

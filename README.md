@@ -2,10 +2,14 @@
 # react-native-rtmpview
 
 ## Getting started
+   
+Updated version of [react-native-rtmpview](https://github.com/perrystreetsoftware/react-native-rtmpview)
+`$ yarn add @matinzd/react-native-rtmpview`
 
-`$ npm install react-native-rtmpview --save`
+### React native >= 0.60   
+There is no need to link just add and rebuild your app.
 
-### iOS installation
+### iOS installation (Manual)
 
 Find or create an iOS podfile in the `./ios` directory, and add:
 
@@ -19,16 +23,16 @@ Next, run
 
 Because react-native-rtmpview has cocoapod dependencies on third-party video playback libraries, it must be added through Cocoapods. (You cannot simply use `react-native link` for example, as you can with other libraries).
 
-### Android installation
+### Android installation (Manual)
 
 This library now works with Android clients. In your project's `settings.gradle` file, add:
 
-    include ':react-native-rtmpview'
-    project(':react-native-rtmpview').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-rtmpview/android')
+    include ':@matinzd_react-native-rtmpview'
+    project(':@matinzd_react-native-rtmpview').projectDir = new File(rootProject.projectDir, '../node_modules/@matinzd/react-native-rtmpview/android')
 
 In the `android/app/build.gradle` file, under dependencies, add:
 ```
-implementation project(':react-native-rtmpview')
+implementation project(':@matinzd_react-native-rtmpview')
 ```
 Then, in your `ReactApplication` class, under `MainApplication.java`, import the package and make sure that the `getPackages()` method includes:
 
@@ -62,7 +66,7 @@ react-native-rtmpview includes an example project to help get you started. To bu
 ## Usage
 ```javascript
 
-import { RtmpView } from 'react-native-rtmpview';
+import { RtmpView } from '@matinzd/react-native-rtmpview';
 
 export default class Example extends Component {
   componentDidMount() {
