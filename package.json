@@ -23,7 +23,6 @@
   },
   "license": "MIT",
   "licenseFilename": "LICENSE",
-  "readmeFilename": "README.md",
   "peerDependencies": {
     "react": "*",
     "react-native": "*"

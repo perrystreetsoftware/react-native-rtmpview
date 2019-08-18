@@ -3,7 +3,7 @@
 
 ## Getting started
    
-Updated version of [react-native-rtmpview](https://github.com/perrystreetsoftware/react-native-rtmpview)
+Updated version of [react-native-rtmpview](https://github.com/perrystreetsoftware/react-native-rtmpview)   
 `$ yarn add @matinzd/react-native-rtmpview`
 
 ### React native >= 0.60   
