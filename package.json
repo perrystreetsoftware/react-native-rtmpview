@@ -5,6 +5,7 @@
   "summary": "RTMP in RN",
   "description": "Show RTMP views on iOS + Android using React Native",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

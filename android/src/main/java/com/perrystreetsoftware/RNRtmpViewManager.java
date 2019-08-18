@@ -1,6 +1,6 @@
 package com.perrystreetsoftware;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.common.MapBuilder;
@@ -16,6 +16,8 @@ public class RNRtmpViewManager extends SimpleViewManager<RNRtmpView> {
     public static final String PROP_URL = "url";
     public static final String PROP_SCALING_MODE = "scalingMode";
     public static final String PROP_SHOULD_MUTE = "shouldMute";
+    public static final String PROP_BACKGROUND_PLAY = "backgroundPlay";
+
 
     @Override
     public String getName() {
@@ -93,5 +95,10 @@ public class RNRtmpViewManager extends SimpleViewManager<RNRtmpView> {
     @ReactProp(name = PROP_SHOULD_MUTE)
     public void setShouldMute(RNRtmpView videoView, final boolean shouldMute) {
         videoView.setShouldMute(shouldMute);
+    }
+
+    @ReactProp(name = PROP_BACKGROUND_PLAY)
+    public void setBackgroundPlay(RNRtmpView videoView, final boolean backgroundPlay) {
+        videoView.setBackgroundPlay(backgroundPlay);
     }
 }

@@ -2,7 +2,9 @@ package com.perrystreetsoftware;
 
 import android.content.Context;
 import android.net.Uri;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
+
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.FrameLayout;
@@ -48,6 +50,7 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
     private String mUrlString;
     private float mLastAudioVolume;
     private boolean mShouldMute;
+    private boolean mBackgroundPlay;
     private double mLastBitrateCalculation;
 
     public enum Commands {
@@ -107,10 +110,10 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
         //Inflate xml resource, pass "this" as the parent, we use <merge> tag in xml to avoid
         //redundant parent, otherwise a LinearLayout will be added to this LinearLayout ending up
         //with two view groups
-        inflate(getContext(), R.layout.react_rtmp_view,this);
+        inflate(getContext(), R.layout.react_rtmp_view, this);
 
         mExoPlayerView = findViewById(R.id.player_view);
-        ((ThemedReactContext)context).addLifecycleEventListener(this);
+        ((ThemedReactContext) context).addLifecycleEventListener(this);
     }
 
     public void initialize() {
@@ -274,6 +277,11 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
         this.mShouldMute = value;
     }
 
+    public void setBackgroundPlay(boolean value) {
+        this.mBackgroundPlay = value;
+    }
+
+
     public void mute() {
         mLastAudioVolume = mPlayer.getVolume();
 
@@ -295,13 +303,17 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
     @Override
     public void onHostResume() {
         Log.i(APP_NAME, "Lifecycle: onHostResume");
-        play();
+        if (!this.mBackgroundPlay) {
+            play();
+        }
     }
 
     @Override
     public void onHostPause() {
         Log.i(APP_NAME, "Lifecycle: onHostPause");
-        stop();
+        if (!this.mBackgroundPlay) {
+            stop();
+        }
     }
 
     @Override
@@ -335,7 +347,7 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
         WritableMap event = Arguments.createMap();
         event.putString("bitrate", String.format(Locale.US, "%f", bitrateInKbps));
 
-        ReactContext reactContext = (ReactContext)getContext();
+        ReactContext reactContext = (ReactContext) getContext();
         reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
                 Events.EVENT_BITRATE_RECALCULATED.toString(),
@@ -345,7 +357,7 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
     public void onFirstVideoFrameRendered() {
         WritableMap event = Arguments.createMap();
 
-        ReactContext reactContext = (ReactContext)getContext();
+        ReactContext reactContext = (ReactContext) getContext();
         reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
                 Events.EVENT_FIRST_VIDEO_FRAME_RENDERED.toString(),
@@ -374,7 +386,7 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
         WritableMap event = Arguments.createMap();
         event.putString("state", loadState.getFieldDescription());
 
-        ReactContext reactContext = (ReactContext)getContext();
+        ReactContext reactContext = (ReactContext) getContext();
         reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
                 Events.EVENT_LOAD_STATE.toString(),
@@ -419,7 +431,7 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
 
         event.putMap("qos", getQos());
 
-        ReactContext reactContext = (ReactContext)getContext();
+        ReactContext reactContext = (ReactContext) getContext();
         reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
                 Events.EVENT_PLAYBACK_STATE.toString(),
