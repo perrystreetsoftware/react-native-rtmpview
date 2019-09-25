@@ -49,6 +49,8 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
     private float mLastAudioVolume;
     private boolean mShouldMute;
     private double mLastBitrateCalculation;
+    private boolean mPlayOnResume;
+    private boolean mPauseOnStop;
 
     public enum Commands {
         COMMAND_INITIALIZE("initialize"),
@@ -270,6 +272,22 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
         }
     }
 
+    public void setPlayOnResume(boolean value) {
+        this.mPlayOnResume = value;
+    }
+
+    public boolean getPlayOnResume() {
+        return this.mPlayOnResume;
+    }
+
+    public void setPauseOnStop(boolean value) {
+        this.mPauseOnStop = value;
+    }
+
+    public boolean getPauseOnStop() {
+        return this.mPauseOnStop;
+    }
+
     public void setShouldMute(boolean value) {
         this.mShouldMute = value;
     }
@@ -295,13 +313,19 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
     @Override
     public void onHostResume() {
         Log.i(APP_NAME, "Lifecycle: onHostResume");
-        play();
+
+        if (this.getPlayOnResume()) {
+            play();
+        }
     }
 
     @Override
     public void onHostPause() {
         Log.i(APP_NAME, "Lifecycle: onHostPause");
-        stop();
+
+        if (this.getPauseOnStop()) {
+            stop();
+        }
     }
 
     @Override

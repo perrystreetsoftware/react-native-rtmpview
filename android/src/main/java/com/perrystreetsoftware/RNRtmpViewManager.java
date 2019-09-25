@@ -16,6 +16,9 @@ public class RNRtmpViewManager extends SimpleViewManager<RNRtmpView> {
     public static final String PROP_URL = "url";
     public static final String PROP_SCALING_MODE = "scalingMode";
     public static final String PROP_SHOULD_MUTE = "shouldMute";
+    public static final String PROP_PLAY_ON_RESUME = "playOnResume";
+    public static final String PROP_PAUSE_ON_STOP = "pauseOnStop";
+
 
     @Override
     public String getName() {
@@ -93,5 +96,15 @@ public class RNRtmpViewManager extends SimpleViewManager<RNRtmpView> {
     @ReactProp(name = PROP_SHOULD_MUTE)
     public void setShouldMute(RNRtmpView videoView, final boolean shouldMute) {
         videoView.setShouldMute(shouldMute);
+    }
+
+    @ReactProp(name = PROP_PLAY_ON_RESUME)
+    public void setPlayOnResume(RNRtmpView videoView, final boolean value) {
+        videoView.setPlayOnResume(value);
+    }
+
+    @ReactProp(name = PROP_PAUSE_ON_STOP)
+    public void setPauseOnStop(RNRtmpView videoView, final boolean value) {
+        videoView.setPauseOnStop(value);
     }
 }

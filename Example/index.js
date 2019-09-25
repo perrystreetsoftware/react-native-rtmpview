@@ -84,6 +84,8 @@ export default class Example extends Component {
         <RtmpView
           style={styles.player}
           shouldMute={false}
+          playOnResume={false}
+          pauseOnStop={true}
           ref={e => { this.player = e; }}
           onPlaybackState={(data) => {
             this.handlePlaybackState(data);

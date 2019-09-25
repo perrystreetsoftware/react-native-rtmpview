@@ -97,6 +97,8 @@ class RtmpView extends Component {
       ref={RCT_VIDEO_REF}
       scalingMode='MovieScalingModeAspectFill'
       shouldMute={false}
+      playOnResume={true}
+      pauseOnStop={true}
       onPlaybackState={this._onPlaybackState.bind(this)}
       onLoadState={this._onLoadState.bind(this)}
       onFirstVideoFrameRendered={this._onFirstVideoFrameRendered.bind(this)}
@@ -111,6 +113,8 @@ RtmpView.propTypes = {
   url: PropTypes.string,
   scalingMode: PropTypes.string,
   shouldMute: PropTypes.bool,
+  playOnResume: PropTypes.bool,
+  pauseOnStop: PropTypes.bool,
   onPlaybackState: PropTypes.func,
   onLoadState: PropTypes.func,
   onFirstVideoFrameRendered: PropTypes.func,
