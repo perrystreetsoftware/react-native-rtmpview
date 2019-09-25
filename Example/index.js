@@ -123,6 +123,12 @@ export default class Example extends Component {
           }}
           title="Unmute"
         />
+        <Button
+          onPress={() => {
+            this.player.stop()
+          }}
+          title="Stop"
+        />
       </View>
     );
   }
