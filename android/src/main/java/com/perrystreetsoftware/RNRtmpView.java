@@ -270,6 +270,11 @@ public class RNRtmpView extends FrameLayout implements LifecycleEventListener, R
         if (this.mPlayer != null) {
             mPlayer.stop();
         }
+
+        if (this.mTransferListener != null) {
+            this.mTransferListener.dispose();
+            this.mTransferListener = null;
+        }
     }
 
     public void setPlayOnResume(boolean value) {
