@@ -11,3 +11,6 @@
 
 @end
   
+@interface RNIVSPlayerView: RCTViewManager
+
+@end

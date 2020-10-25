@@ -1,6 +1,10 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
+## AmazonIVSPlayer
+
+https://player.live-video.net/LICENSE.txt
+
 ## DoubleConversion
 
 Copyright 2006-2011, the V8 project authors. All rights reserved.

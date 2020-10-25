@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.homepage     = 'https://github.com/perrystreetsoftware/react-native-rtmpview'
   s.license      = 'MIT'
   s.author       = { 'author' => 'eric@s*****.com' }
-  s.platform     = :ios, '8.0'
+  s.platform     = :ios, '12.0'
   s.source       = { git: 'https://github.com/perrystreetsoftware/' \
                           'react-native-rtmpview.git',
                      tag: s.version.to_s }
@@ -22,4 +22,5 @@ Pod::Spec.new do |s|
   s.dependency 'libksygpulive/KSYGPUResource'
   s.dependency 'libksygpulive/libksygpulive'
   s.dependency 'PureLayout'
+  s.dependency 'AmazonIVSPlayer'
 end

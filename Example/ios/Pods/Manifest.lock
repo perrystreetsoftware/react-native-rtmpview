@@ -1,4 +1,5 @@
 PODS:
+  - AmazonIVSPlayer (1.1.0)
   - boost-for-react-native (1.63.0)
   - DoubleConversion (1.1.5)
   - Folly (2018.10.22.00):
@@ -22,10 +23,11 @@ PODS:
     - libksygpulive/mediacore_enc_lite
     - libksygpulive/yuv
   - libksygpulive/yuv (3.0.4)
-  - PureLayout (3.1.4)
+  - PureLayout (3.1.6)
   - React (0.59.8):
     - React/Core (= 0.59.8)
-  - react-native-rtmpview (1.0.21):
+  - react-native-rtmpview (1.0.28):
+    - AmazonIVSPlayer
     - libksygpulive/KSYGPUResource
     - libksygpulive/libksygpulive
     - PureLayout
@@ -63,10 +65,12 @@ DEPENDENCIES:
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - boost-for-react-native
     - DoubleConversion
     - glog
+  trunk:
+    - AmazonIVSPlayer
     - GPUImage
     - libksygpulive
     - PureLayout
@@ -82,17 +86,18 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  AmazonIVSPlayer: 284fcbd4070ffac0b6d3a3730bbee86d27f55e4d
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: e22e0762848812a87afd67ffda3998d9ef29170c
   Folly: de497beb10f102453a1afa9edbf8cf8a251890de
   glog: 1de0bb937dccdc981596d3b5825ebfb765017ded
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   libksygpulive: aca3eb30e7a38ee6565feb52feb82ccc0103ce43
-  PureLayout: f08c01b8dec00bb14a1fefa3de4c7d9c265df85e
+  PureLayout: bd3c4ec3a3819ad387c99ebb72c6b129c3ed4d2d
   React: 76e6aa2b87d05eb6cccb6926d72685c9a07df152
-  react-native-rtmpview: 2e767d0d282e46ebd88063453968de7369369009
+  react-native-rtmpview: 80a09fe98d65ad44eedf12ae20642d09b1126e87
   yoga: 92b2102c3d373d1a790db4ab761d2b0ffc634f64
 
-PODFILE CHECKSUM: 587c2123e9ddc5b868a41070c30627bc74e1d3bb
+PODFILE CHECKSUM: 5d956e807b355975679ec941c828e9ca4b3fccf2
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.9.3

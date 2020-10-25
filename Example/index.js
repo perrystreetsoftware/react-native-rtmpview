@@ -14,7 +14,7 @@ import {
   Button,
   View
 } from 'react-native';
-import { RtmpView } from 'react-native-rtmpview';
+import { IVSPlayerView } from 'react-native-rtmpview';
 
 export default class Example extends Component {
   constructor(props, context) {
@@ -22,21 +22,21 @@ export default class Example extends Component {
     this.player = null;
 
 
-    const RNRtmpEventManager =
-      NativeModules.RNRtmpEventManager;
+    // const RNRtmpEventManager =
+    //   NativeModules.RNRtmpEventManager;
 
-    if (!(typeof RNRtmpEventManager === "undefined")) {
-      const RNRtmpEventManager = new NativeEventEmitter(
-        NativeModules.RNRtmpEventManager
-      );
+    // if (!(typeof RNRtmpEventManager === "undefined")) {
+    //   const RNRtmpEventManager = new NativeEventEmitter(
+    //     NativeModules.RNRtmpEventManager
+    //   );
 
-      RNRtmpEventManager.addListener(
-        "RNRtmpEvent",
-        (data) => this.handleRNRtmpEvent(data)
-      );
+    //   RNRtmpEventManager.addListener(
+    //     "RNRtmpEvent",
+    //     (data) => this.handleRNRtmpEvent(data)
+    //   );
 
-      console.log("React Native Received: Just finished adding listeners");
-    }
+    //   console.log("React Native Received: Just finished adding listeners");
+    // }
   }
 
   handlePlaybackState(data) {
@@ -75,32 +75,15 @@ export default class Example extends Component {
   }
 
   componentDidMount() {
-    this.player.initialize();
+    // this.player.initialize();
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <RtmpView
+        <IVSPlayerView
           style={styles.player}
-          shouldMute={false}
-          playOnResume={false}
-          pauseOnStop={true}
-          ref={e => { this.player = e; }}
-          onPlaybackState={(data) => {
-            this.handlePlaybackState(data);
-          }}
-          onLoadState={(data) => {
-            this.handleLoadState(data);
-          }}
-          onFirstVideoFrameRendered={(data) => {
-            this.handleFirstVideoFrameRendered(data);
-          }}
-          onBitrateRecalculated={(data) => {
-            this.handleBitrateRecalculated(data);
-          }}
-          url="rtmp://stream1.livestreamingservices.com:1935/tvmlive/tvmlive" />
-
+          ref={e => { this.player = e; }} />
         <Button
           onPress={() => {
             this.player.pause()
@@ -109,7 +92,7 @@ export default class Example extends Component {
         />
         <Button
           onPress={() => {
-            this.player.play()
+            this.player.load("rtmp://stream1.livestreamingservices.com:1935/tvmlive/tvmlive")
           }}
           title="Play"
         />

@@ -1,6 +1,6 @@
 {
   "name": "react-native-rtmpview",
-  "version": "1.0.21",
+  "version": "1.0.28",
   "summary": "Show RTMP views on iOS + Android using React Native",
   "description": "RTMP in RN",
   "homepage": "https://github.com/perrystreetsoftware/react-native-rtmpview",
@@ -9,11 +9,11 @@
     "author": "eric@s*****.com"
   },
   "platforms": {
-    "ios": "8.0"
+    "ios": "12.0"
   },
   "source": {
     "git": "https://github.com/perrystreetsoftware/react-native-rtmpview.git",
-    "tag": "1.0.21"
+    "tag": "1.0.28"
   },
   "source_files": "ios/*.{h,m}",
   "requires_arc": true,
@@ -28,6 +28,9 @@
 
     ],
     "PureLayout": [
+
+    ],
+    "AmazonIVSPlayer": [
 
     ]
   }

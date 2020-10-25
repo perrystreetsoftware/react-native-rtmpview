@@ -1,0 +1,6 @@
+framework module AmazonIVSPlayer {
+  umbrella header "AmazonIVSPlayer.h"
+
+  export *
+  module * { export * }
+}
