@@ -9,7 +9,7 @@
   "dependencies": {
     "react": "16.8.3",
     "react-native": "0.59.8",
-    "react-native-rtmpview": "perrystreetsoftware/react-native-rtmpview#aws"
+    "react-native-rtmpview": "github:perrystreetsoftware/react-native-rtmpview#aws"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
