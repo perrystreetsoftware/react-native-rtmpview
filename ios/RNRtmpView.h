@@ -6,10 +6,6 @@
 #import "RCTBridgeModule.h"
 #import "RCTViewManager.h"
 #endif
-
-@interface RNRtmpView : RCTViewManager
-
-@end
   
 @interface RNIVSPlayerView: RCTViewManager
 

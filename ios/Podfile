@@ -6,8 +6,6 @@ target 'RNRtmpView' do
   # use_frameworks!
 
   # Pods for RNRtmpView
-  pod 'libksygpulive/KSYGPUResource'
-  pod 'libksygpulive/libksygpulive'
   pod 'AmazonIVSPlayer'
   pod 'PureLayout'
 end

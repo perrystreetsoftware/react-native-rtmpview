@@ -19,8 +19,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.dependency 'React'
-  s.dependency 'libksygpulive/KSYGPUResource'
-  s.dependency 'libksygpulive/libksygpulive'
   s.dependency 'PureLayout'
   s.dependency 'AmazonIVSPlayer'
 end

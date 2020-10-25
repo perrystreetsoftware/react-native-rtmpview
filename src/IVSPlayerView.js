@@ -47,30 +47,6 @@ class IVSPlayerView extends Component {
     );
   }
 
-//   stop() {
-//     UIManager.dispatchViewManagerCommand(
-//       findNodeHandle(this.refs[RCT_IVS_VIDEO_REF]),
-//       UIManager.getViewManagerConfig('RNRtmpView').Commands.stop,
-//       null
-//     );
-//   }
-
-//   mute() {
-//     UIManager.dispatchViewManagerCommand(
-//       findNodeHandle(this.refs[RCT_IVS_VIDEO_REF]),
-//       UIManager.getViewManagerConfig('RNRtmpView').Commands.mute,
-//       null
-//     );
-//   }
-
-//   unmute() {
-//     UIManager.dispatchViewManagerCommand(
-//       findNodeHandle(this.refs[RCT_IVS_VIDEO_REF]),
-//       UIManager.getViewManagerConfig('RNRtmpView').Commands.unmute,
-//       null
-//     );
-//   }
-
   render() {
     return <RNIVSPlayerView
       ref={RCT_IVS_VIDEO_REF}

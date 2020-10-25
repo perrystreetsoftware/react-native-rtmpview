@@ -92,7 +92,7 @@ export default class Example extends Component {
         />
         <Button
           onPress={() => {
-            this.player.load("rtmp://stream1.livestreamingservices.com:1935/tvmlive/tvmlive")
+            this.player.load("https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8")
           }}
           title="Play"
         />
