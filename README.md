@@ -1,6 +1,12 @@
 
 # react-native-rtmpview
 
+## This project is now deprecated
+
+Please see our new project, https://github.com/perrystreetsoftware/react-native-aws-ivs-player-view
+
+We have migrated to using AWS IVS because the iOS library that provides RTMP playback is no longer in active development as of 2020.
+
 ## Getting started
 
 `$ npm install react-native-rtmpview --save`
