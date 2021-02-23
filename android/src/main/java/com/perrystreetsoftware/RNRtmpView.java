@@ -2,7 +2,7 @@ package com.perrystreetsoftware;
 
 import android.content.Context;
 import android.net.Uri;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.FrameLayout;
